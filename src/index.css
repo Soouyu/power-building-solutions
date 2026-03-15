@@ -1,0 +1,157 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import "./styles/hero.css";
+@import "./styles/header.css";
+@import "./styles/about.css";
+@import "./styles/services.css";
+@import "./styles/chooseUs.css";
+@import "./styles/QuoteSection.css";
+@import "./styles/proyect-section.css";
+@import "./styles/Intro.css";
+@import "./styles/trusted.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+  :root {
+    /* Power Building Solutions - Corporate Industrial Theme */
+    --background: 210 20% 94%; /* #E9EEF2 */
+    --foreground: 204 22% 24%; /* #2F3E4A */
+
+    --card: 0 0% 100%;
+    --card-foreground: 204 22% 24%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 204 22% 24%;
+
+    --primary: 204 22% 24%; /* Dark steel blue #2F3E4A */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 200 20% 45%; /* Blue-gray #5E7A8A */
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 210 20% 94%;
+    --muted-foreground: 200 20% 45%;
+
+    --accent: 122 39% 49%; /* Subtle green #4CAF50 */
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 210 20% 85%;
+    --input: 210 20% 85%;
+    --ring: 204 22% 24%;
+
+    --radius: 0.375rem;
+
+    /* Custom tokens */
+    --steel: 204 22% 24%;
+    --steel-light: 200 20% 45%;
+    --surface: 0 0% 100%;
+    --surface-muted: 210 20% 94%;
+    --cta: 122 39% 49%;
+    --cta-hover: 122 39% 42%;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 204 22% 10%;
+    --foreground: 210 20% 94%;
+
+    --card: 204 22% 14%;
+    --card-foreground: 210 20% 94%;
+
+    --popover: 204 22% 14%;
+    --popover-foreground: 210 20% 94%;
+
+    --primary: 210 20% 94%;
+    --primary-foreground: 204 22% 24%;
+
+    --secondary: 200 20% 35%;
+    --secondary-foreground: 210 20% 94%;
+
+    --muted: 204 22% 18%;
+    --muted-foreground: 200 20% 65%;
+
+    --accent: 122 39% 49%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 204 22% 20%;
+    --input: 204 22% 20%;
+    --ring: 210 20% 80%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight text-primary;
+  }
+}
+
+@layer components {
+  .section-padding {
+    @apply py-16 md:py-24 px-4 md:px-8;
+  }
+
+  .container-max {
+    @apply max-w-7xl mx-auto;
+  }
+
+  .heading-display {
+    @apply text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight;
+  }
+
+  .heading-section {
+    @apply text-3xl md:text-4xl font-bold;
+  }
+
+  .text-body {
+    @apply text-base md:text-lg text-muted-foreground leading-relaxed;
+  }
+
+  .card-elevated {
+    @apply bg-card rounded-lg shadow-lg border border-border p-6 md:p-8;
+  }
+
+  .gradient-overlay {
+    background: linear-gradient(
+      to right,
+      hsl(var(--primary) / 0.95) 0%,
+      hsl(var(--primary) / 0.7) 50%,
+      transparent 100%
+    );
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}

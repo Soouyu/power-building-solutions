@@ -1,0 +1,109 @@
+@layer components {
+  /* ===== PROJECT CARDS REDISEÑADOS ===== */
+  .projectCard {
+    @apply relative bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2;
+  }
+
+  .projectMedia {
+    @apply relative aspect-[4/3] overflow-hidden;
+  }
+
+  .projectMediaOverlay {
+    @apply absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors duration-500 z-10;
+  }
+
+  .projectImage {
+    @apply w-full h-full object-cover transition-transform duration-700 group-hover:scale-110;
+  }
+
+  .projectCategory {
+    @apply absolute top-5 right-5 z-20 px-4 py-2 bg-white/95 backdrop-blur-sm text-primary font-semibold text-sm rounded-full shadow-lg border border-white/50;
+  }
+
+  .projectGradient {
+    @apply absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/60 to-transparent z-10;
+  }
+
+  .projectContent {
+    @apply p-8 bg-white;
+  }
+
+  .projectTitle {
+    @apply text-2xl font-bold text-gray-900 mb-3 leading-tight;
+  }
+
+  .projectDesc {
+    @apply text-gray-600 mb-6 leading-relaxed;
+  }
+
+  .projectBtn {
+    @apply inline-flex items-center gap-3 text-primary font-semibold hover:text-secondary transition-colors duration-300;
+  }
+
+  .projectBtnText {
+    @apply relative;
+  }
+
+  .projectBtnUnderline {
+    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-secondary group-hover/btn:w-full transition-all duration-300;
+  }
+
+  .projectBtnIcon {
+    @apply w-5 h-5 transform group-hover/btn:translate-x-2 transition-transform duration-300;
+  }
+
+  .projectBorder {
+    @apply absolute inset-0 rounded-3xl border-2 border-transparent group-hover:border-secondary/20 transition-colors duration-500 pointer-events-none;
+  }
+
+  /* ===== SECTION HEADER ===== */
+  .sectionBadge {
+    @apply inline-block px-4 py-2 bg-secondary/10 text-secondary font-semibold rounded-full text-sm mb-4;
+  }
+
+  .sectionTitle {
+    @apply text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent;
+  }
+
+  .sectionDesc {
+    @apply text-lg text-muted-foreground;
+  }
+
+  /* ===== GRID ===== */
+  .projectsGrid {
+    @apply grid md:grid-cols-2 gap-8 lg:gap-10;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .projectContent {
+      @apply p-6;
+    }
+    
+    .projectTitle {
+      @apply text-xl;
+    }
+    
+    .projectDesc {
+      @apply text-sm mb-4;
+    }
+    
+    .projectCategory {
+      @apply top-4 right-4 px-3 py-1.5 text-xs;
+    }
+
+    .sectionTitle {
+      @apply text-3xl;
+    }
+
+    .sectionDesc {
+      @apply text-base;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .projectCard {
+      @apply rounded-2xl;
+    }
+  }
+}

@@ -1,0 +1,213 @@
+@layer components {
+  /* =========================
+     PWS HERO — Image -> Video cycle
+     ========================= */
+
+  .pws-hero{
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: 80px; /* pt-20 */
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .pws-heroBg{
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+.pws-heroAccent{
+  color: #7ec3ff !important;
+}
+`
+  .pws-header{
+    position: fixed;
+    top: 0;
+    inset-inline: 0;
+    z-index: 50;
+
+    transform: translateY(-100%);
+    opacity: 0;
+
+    background: rgba(255,255,255,.58);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    border-bottom: 1px solid rgba(255,255,255,.55);
+    box-shadow: 0 8px 30px rgba(0,0,0,.10);
+
+    transition: transform .35s ease, opacity .35s ease, background .3s ease;
+  }
+
+.pws-header.is-scrolled{
+  transform: translateY(0);
+  opacity: 1;
+}
+  .pws-heroMedia{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transform: scale(1.06);
+  filter: saturate(1.02) contrast(1.02);
+  opacity:0;
+  transition: opacity .65s ease, transform .9s ease, filter .9s ease;
+}
+
+  .pws-heroMedia.is-visible{
+  opacity:1;
+  transform: scale(1.03);
+  filter: saturate(1.05) contrast(1.06);
+}
+
+.pws-heroMedia.is-hidden{
+  opacity:0;
+  transform: scale(1.08);
+  filter: blur(2px) saturate(1.0) contrast(1.0);
+} 
+.pws-heroOverlay 
+  {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+
+    /* 1) gradiente base */
+    background:
+      /* glow suave arriba (da “premium”) */
+      radial-gradient(900px 520px at 18% 18%, rgba(255,255,255,.10), rgba(255,255,255,0) 55%),
+      /* vignette (oscurece bordes para foco al centro) */
+      radial-gradient(1200px 800px at 50% 45%, rgba(0,0,0,0) 35%, rgba(0,0,0,.55) 100%),
+      /* tu gradiente vertical */
+      linear-gradient(180deg,
+        rgba(15, 24, 32, 0.28) 0%,
+        rgba(15, 24, 32, 0.55) 55%,
+        rgba(15, 24, 32, 0.82) 100%
+      );
+  }
+  .pws-heroOverlay::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.16'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
+    opacity: .22;
+    pointer-events:none;
+  }
+
+  .pws-container{
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 80px 16px; /* py-20 px-4 */
+  }
+
+  
+
+  /* ===== Intro uniforme (TODOS a la vez) ===== */
+  .pws-in{
+    opacity: 0;
+    transform: translateY(22px);
+    filter: blur(12px);
+
+    animation: pwsIntro 1.9s cubic-bezier(.16,1,.3,1) forwards;
+    animation-delay: 1.4s; /* ⬅️ aquí controlas cuánto se demora en empezar */
+    will-change: transform, opacity, filter;
+  }
+
+  @keyframes pwsIntro{
+    0%{
+      opacity: 0;
+      transform: translateY(22px);
+      filter: blur(12px);
+    }
+    70%{
+      opacity: .9;
+      transform: translateY(6px);
+      filter: blur(2px);
+    }
+    100%{
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+    }
+  }
+
+  /* Accesibilidad */
+  @media (prefers-reduced-motion: reduce){
+    .pws-in{ opacity:1; transform:none; filter:none; animation:none; }
+  }
+
+  @media (min-width: 768px){
+      .pws-container{ padding: 80px 32px; } /* md:px-8 */
+    }
+
+    .pws-heroContent{
+      position: relative;
+      z-index: 2;
+    }
+
+    .pws-max{
+      max-width: 48rem; /* max-w-3xl */
+  }
+
+  /* =========================
+     HERO — ANIMATED ICON
+  ========================= */
+
+  .pws-heroIconWrap {
+    position: absolute;
+    right: 7%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 210px;
+    height: 210px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .pws-heroIconRing {
+    position: absolute;
+    border-radius: 50%;
+  }
+
+  .pws-heroIconRing--outer {
+    inset: 0;
+    border: 2px dashed rgba(255, 255, 255, .22);
+  }
+
+  .pws-heroIconRing--inner {
+    inset: 22px;
+    border: 2px solid transparent;
+    border-top-color: rgba(255, 255, 255, .7);
+    border-bottom-color: rgba(126, 195, 255, .5);
+  }
+
+  .pws-heroIconCenter {
+    position: relative;
+    z-index: 2;
+    width: 92px;
+    height: 92px;
+    background: rgba(255, 255, 255, .1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    box-shadow:
+      0 4px 24px rgba(0, 0, 0, .3),
+      0 0 0 1px rgba(255, 255, 255, .12);
+    backdrop-filter: blur(8px);
+  }
+
+  @media (max-width: 1024px) {
+    .pws-heroIconWrap { display: none; }
+  }
+}

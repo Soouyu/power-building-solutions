@@ -1,0 +1,244 @@
+@layer components {
+  /* =========================
+     QUOTE SECTION — FIXED BG + RISE EFFECT
+     ========================= */
+
+  .quoteFX {
+    position: relative;
+    padding: 96px 0;
+    overflow: hidden;
+    isolation: isolate;
+
+    background-image: var(--quote-bg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+
+  /* Overlay oscuro elegante */
+  .quoteFX::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background:
+      radial-gradient(circle at 20% 25%, rgba(0,0,0,0.35), transparent 55%),
+      radial-gradient(circle at 80% 30%, rgba(0,0,0,0.25), transparent 60%),
+      linear-gradient(
+        180deg,
+        rgba(5,10,18,0.75) 0%,
+        rgba(5,10,18,0.65) 45%,
+        rgba(5,10,18,0.85) 100%
+      );
+  }
+
+  .quoteFX-container {
+    position: relative;
+    z-index: 1;
+  }
+
+  .quoteFX-grid {
+    display: grid;
+    gap: 64px;
+  }
+
+  @media (min-width: 1024px) {
+    .quoteFX-grid {
+      grid-template-columns: 1.1fr 1fr;
+      align-items: center;
+    }
+  }
+
+  /* =========================
+     LEFT CONTENT
+     ========================= */
+
+  /* =========================
+     QUOTE — ANIMATED ICON
+  ========================= */
+
+  .quoteFX-iconWrap {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0 24px;
+  }
+
+  .quoteFX-iconRing {
+    position: absolute;
+    border-radius: 50%;
+  }
+
+  .quoteFX-iconRing--outer {
+    inset: 0;
+    border: 2px dashed rgba(56, 189, 248, .22);
+  }
+
+  .quoteFX-iconRing--inner {
+    inset: 18px;
+    border: 2px solid transparent;
+    border-top-color: rgba(56, 189, 248, .75);
+    border-bottom-color: rgba(56, 189, 248, .3);
+  }
+
+  .quoteFX-iconCenter {
+    position: relative;
+    z-index: 2;
+    width: 68px;
+    height: 68px;
+    background: rgba(255, 255, 255, .07);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #7dd3fc;
+    box-shadow:
+      0 4px 20px rgba(56, 189, 248, .2),
+      0 0 0 1px rgba(56, 189, 248, .12);
+    backdrop-filter: blur(6px);
+  }
+
+  .quoteFX-left {
+    color: #fff;
+    max-width: 560px;
+  }
+
+  .quoteFX-kicker {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 12px;
+    font-weight: 600;
+    color: #7dd3fc;
+  }
+
+  .quoteFX-title {
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 700;
+    margin: 12px 0 20px;
+    line-height: 1.1;
+    color: #ffffff;
+  }
+
+  .quoteFX-title span {
+    color: #38bdf8;
+  }
+
+  .quoteFX-lead {
+    font-size: 17px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 28px;
+  }
+
+  .quoteFX-steps {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .quoteFX-steps li {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 14px;
+    color: rgba(255,255,255,0.9);
+  }
+
+  .quoteFX-steps span {
+    width: 32px;
+    height: 32px;
+    border-radius: 999px;
+    background: #38bdf8;
+    color: #020617;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+  }
+
+  /* =========================
+     FORM CARD
+     ========================= */
+
+  .quoteFX-card {
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.35);
+  }
+
+  .quoteFX-form {
+    display: grid;
+    gap: 16px;
+  }
+
+  .quoteFX-row {
+    display: grid;
+    gap: 12px;
+  }
+
+  @media (min-width: 640px) {
+    .quoteFX-row {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .quoteFX-select {
+    height: 40px;
+    border-radius: 8px;
+    border: 1px solid hsl(var(--input));
+    background: hsl(var(--background));
+    padding: 0 12px;
+    font-size: 14px;
+  }
+
+  .quoteFX-legal {
+    font-size: 11px;
+    color: rgba(2,6,23,0.55);
+    text-align: center;
+    margin-top: 4px;
+  }
+
+  /* =========================
+     RISE ANIMATION
+     ========================= */
+
+  .quoteFX-up {
+    animation: quoteUp 0.85s cubic-bezier(.2,.8,.2,1) both;
+  }
+
+  .quoteFX-up:nth-child(1) { animation-delay: .05s; }
+  .quoteFX-up:nth-child(2) { animation-delay: .14s; }
+
+  @keyframes quoteUp {
+    from {
+      opacity: 0;
+      transform: translateY(22px);
+      filter: blur(4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+    }
+  }
+
+  /* Mobile fix */
+  @media (max-width: 1024px) {
+    .quoteFX {
+      background-attachment: scroll;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .quoteFX-up {
+      animation: none;
+    }
+  }
+}

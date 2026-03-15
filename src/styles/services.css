@@ -1,0 +1,338 @@
+@layer components {
+
+/* =========================
+   SERVICES SECTION
+========================= */
+
+.svcNew {
+  position: relative;
+  padding: 100px 0;
+  background: #f8fafc;
+  color: #1e293b;
+}
+
+/* accent top border */
+.svcNew::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #1d4ed8, #60a5fa);
+  z-index: 1;
+}
+
+/* container */
+.svcContainer {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 32px;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.svcHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 64px;
+  gap: 48px;
+}
+
+.svcHeaderText {
+  max-width: 580px;
+}
+
+.svcEyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  letter-spacing: .2em;
+  font-weight: 700;
+  color: #2563eb;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.svcEyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 28px;
+  height: 2px;
+  background: #2563eb;
+  border-radius: 2px;
+}
+
+.svcHeader h2 {
+  font-size: 42px;
+  font-weight: 800;
+  line-height: 1.18;
+  color: #0f172a;
+  letter-spacing: -.02em;
+}
+
+.svcHeader h2 span {
+  display: block;
+  color: #2563eb;
+}
+
+.svcHeader p {
+  margin-top: 18px;
+  font-size: 17px;
+  line-height: 1.65;
+  color: #64748b;
+  max-width: 480px;
+}
+
+/* =========================
+   ANIMATED ICON
+========================= */
+
+.svcIconWrap {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* outer spinning ring — dashed */
+.svcIconRing--outer {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px dashed rgba(37, 99, 235, .25);
+}
+
+/* inner spinning ring — solid segments */
+.svcIconRing--inner {
+  position: absolute;
+  inset: 20px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  border-top-color: #2563eb;
+  border-bottom-color: #93c5fd;
+}
+
+/* icon in center */
+.svcIconCenter {
+  position: relative;
+  z-index: 2;
+  width: 88px;
+  height: 88px;
+  background: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2563eb;
+  box-shadow:
+    0 4px 20px rgba(37, 99, 235, .18),
+    0 1px 4px rgba(0, 0, 0, .06);
+}
+
+/* =========================
+   GRID
+========================= */
+
+.svcGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+/* =========================
+   CARD
+========================= */
+
+.svcCard {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  transition:
+    border-color .3s ease,
+    box-shadow .3s ease;
+  will-change: transform;
+}
+
+.svcCard:hover {
+  border-color: #93c5fd;
+  box-shadow:
+    0 8px 24px rgba(37, 99, 235, .10),
+    0 2px 6px rgba(0, 0, 0, .05);
+}
+
+/* =========================
+   IMAGE
+========================= */
+
+.svcImage {
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+}
+
+.svcImage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(37, 99, 235, 0);
+  transition: background .35s ease;
+}
+
+.svcCard:hover .svcImage::after {
+  background: rgba(37, 99, 235, .05);
+}
+
+.svcImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .55s ease;
+}
+
+.svcCard:hover img {
+  transform: scale(1.06);
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.svcContent {
+  padding: 24px 26px 26px;
+}
+
+.svcContent h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 8px;
+  letter-spacing: -.01em;
+}
+
+.svcShort {
+  font-size: 14px;
+  line-height: 1.65;
+  color: #64748b;
+}
+
+.svcFull {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid #f1f5f9;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #475569;
+}
+
+.svcMore {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #2563eb;
+  letter-spacing: .01em;
+}
+
+.svcMore svg {
+  transition: transform .22s ease;
+}
+
+.svcCard:hover .svcMore svg {
+  transform: translateX(4px);
+}
+
+/* =========================
+   EXPANDED CARD
+========================= */
+
+.svcCard.open {
+  border-color: #3b82f6;
+  box-shadow:
+    0 12px 36px rgba(37, 99, 235, .13),
+    0 2px 6px rgba(0, 0, 0, .05);
+}
+
+/* =========================
+   RESPONSIVE — mobile first
+========================= */
+
+@media (max-width: 1100px) {
+  .svcGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .svcNew {
+    padding: 72px 0;
+  }
+
+  .svcHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+    margin-bottom: 48px;
+  }
+
+  .svcIconWrap {
+    width: 140px;
+    height: 140px;
+  }
+
+  .svcIconCenter {
+    width: 68px;
+    height: 68px;
+  }
+
+  .svcIconCenter svg {
+    width: 36px;
+    height: 36px;
+  }
+
+  .svcHeader h2 {
+    font-size: 34px;
+  }
+}
+
+@media (max-width: 640px) {
+  .svcNew {
+    padding: 56px 0;
+  }
+
+  .svcContainer {
+    padding: 0 18px;
+  }
+
+  .svcGrid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .svcHeader h2 {
+    font-size: 28px;
+  }
+
+  .svcHeader p {
+    font-size: 15px;
+  }
+
+  .svcImage {
+    height: 180px;
+  }
+}
+
+}

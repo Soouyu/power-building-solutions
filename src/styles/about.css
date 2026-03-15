@@ -1,0 +1,308 @@
+@layer components {
+  /* ====== SECTION ====== */
+  .aboutx {
+    @apply relative overflow-hidden bg-[#060a12] py-[clamp(80px,7vw,120px)];
+  }
+
+  .aboutx-bg {
+    @apply absolute inset-0;
+    background-image: var(--aboutx-bg);
+    background-size: cover;
+    background-position: center;
+    opacity: 0.46;
+    transform: scale(1.08);
+    filter: saturate(1.05) contrast(1.03);
+    z-index: 0;
+    will-change: transform;
+  }
+
+  .aboutx-scrim {
+    @apply absolute inset-0;
+    background:
+      radial-gradient(900px 520px at 22% 28%, rgba(6,10,18,0.02), rgba(6,10,18,0.45)),
+      linear-gradient(180deg, rgba(6,10,18,0.15), rgba(6,10,18,0.55));
+    z-index: 1;
+  }
+
+  /* Animación fondo */
+  @media (prefers-reduced-motion: no-preference) {
+    .aboutx-bg { animation: aboutx-bg-zoom 4s ease-out forwards; }
+    @keyframes aboutx-bg-zoom {
+      0% { transform: scale(1.18); }
+      60% { transform: scale(1.10); }
+      100% { transform: scale(1.08); }
+    }
+  }
+
+  /* ====== LAYOUT WRAP ======
+     Clave: hacerlo robusto.
+     - Base: 1 columna
+     - lg: 2 columnas equilibradas (evita cortes en tablets / intermedios)
+     - xl: leve bias al texto
+  */
+
+.aboutx-wrap {
+  @apply relative z-[2] mx-auto grid w-[min(1120px,92%)] grid-cols-1 items-start
+    gap-[clamp(18px,3vw,34px)]
+    lg:grid-cols-[1fr_1fr]
+    xl:grid-cols-[0.95fr_1.05fr];
+}
+
+  .aboutx-left { @apply pt-1; }
+
+  /* =========================
+     ABOUT — ANIMATED ICON
+  ========================= */
+
+  .aboutx-iconWrap {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .aboutx-iconRing {
+    position: absolute;
+    border-radius: 50%;
+  }
+
+  .aboutx-iconRing--outer {
+    inset: 0;
+    border: 2px dashed rgba(56, 189, 248, .22);
+  }
+
+  .aboutx-iconRing--inner {
+    inset: 18px;
+    border: 2px solid transparent;
+    border-top-color: rgba(56, 189, 248, .75);
+    border-bottom-color: rgba(56, 189, 248, .3);
+  }
+
+  .aboutx-iconCenter {
+    position: relative;
+    z-index: 2;
+    width: 68px;
+    height: 68px;
+    background: rgba(255, 255, 255, .06);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #7dd3fc;
+    box-shadow:
+      0 4px 20px rgba(56, 189, 248, .2),
+      0 0 0 1px rgba(56, 189, 248, .1);
+    backdrop-filter: blur(6px);
+  }
+
+  /* ====== LEFT CONTENT ====== */
+  .aboutx-kicker {
+    @apply mb-3 inline-flex items-center gap-2 rounded-full border border-sky-300/30
+      bg-sky-400/10 px-3 py-2 text-[12px] font-black tracking-[0.12em] text-white;
+    opacity: 0.85;
+  }
+
+  .aboutx-title {
+    @apply mb-3 font-black leading-[1.08] tracking-[-0.02em] text-white/95;
+    font-size: clamp(34px, 4.2vw, 58px);
+  }
+
+  .aboutx-sub {
+    @apply max-w-[68ch] text-white/80;
+    font-size: clamp(16px, 1.15vw, 18.5px);
+    line-height: 1.95;
+  }
+
+  .aboutx-pills { @apply mt-5 flex flex-wrap gap-2; }
+
+  .aboutx-pill {
+    @apply inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-2
+      text-[12.5px] font-extrabold text-white/80 shadow-[0_10px_30px_rgba(0,0,0,0.25)];
+    backdrop-filter: blur(10px);
+  }
+
+  .aboutx-bullets { @apply mt-6 grid gap-3; }
+
+  .aboutx-bullet {
+    @apply grid grid-cols-[42px_1fr] gap-3 rounded-2xl border border-white/10 bg-[#0a0e16]/60 p-3
+      shadow-[0_18px_45px_rgba(0,0,0,0.32)];
+    backdrop-filter: blur(10px);
+  }
+
+  .aboutx-ico {
+    @apply grid h-[42px] w-[42px] place-items-center rounded-2xl border border-sky-300/20 bg-sky-400/10;
+  }
+
+  .aboutx-ico svg { @apply h-[18px] w-[18px] text-white/90; }
+
+  .aboutx-btitle { @apply mb-1 text-[14.5px] font-black text-white/90; }
+  .aboutx-bdesc { @apply text-[13.8px] leading-[1.7] text-white/75; }
+
+  .aboutx-actions { @apply mt-6 flex flex-wrap gap-3; }
+
+  .aboutx-cta {
+    @apply inline-flex h-12 items-center justify-center rounded-xl px-5 text-[13px] font-black text-[#070b12]
+      transition hover:-translate-y-[1px];
+    background: linear-gradient(135deg, #38bdf8, #4f92ff);
+    box-shadow: 0 18px 40px rgba(56, 189, 248, 0.18);
+  }
+
+  .aboutx-cta.ghost {
+    @apply border border-sky-200/20 bg-[#0a0e16]/55 text-white/90 shadow-none;
+    backdrop-filter: blur(10px);
+  }
+
+  /* ====== RIGHT CARD ====== */
+  .aboutx-right { @apply relative min-w-0; } /* min-w-0 evita cortes en grids */
+
+  .aboutx-card {
+    @apply overflow-hidden rounded-3xl border border-white/10 bg-[#0a0e16]/60
+      shadow-[0_30px_80px_rgba(0,0,0,0.35)];
+    backdrop-filter: blur(12px);
+  }
+
+  .aboutx-cardHead { @apply border-b border-white/10 p-6; }
+
+  .aboutx-cardTitle {
+    @apply flex items-center gap-2 text-[17px] font-black text-white/95;
+  }
+
+  .aboutx-cardTitle svg { @apply h-[16px] w-[16px] text-sky-300; }
+
+  .aboutx-cardSub { @apply mt-2 text-[15px] text-white/80; }
+
+  .aboutx-proofGrid { @apply grid grid-cols-3 gap-3 p-6; }
+
+  .aboutx-proofItem { @apply rounded-xl border border-white/10 bg-white/5 p-3 text-center; }
+
+  .aboutx-proofNum { @apply text-[28px] font-black text-sky-300; }
+  .aboutx-proofLbl { @apply text-[13.5px] font-semibold text-white/80; }
+
+  .aboutx-note { @apply px-6 pb-6 text-[15px] leading-relaxed text-white/85; }
+
+  /* ====== PROCESS ====== */
+  .aboutx-process {
+    @apply mt-6 w-full overflow-hidden rounded-3xl border border-white/10 bg-white/[0.06] p-6
+      shadow-[0_22px_60px_rgba(0,0,0,0.35)];
+    backdrop-filter: blur(12px);
+  }
+
+  .aboutx-processHead { @apply mb-5; }
+
+  .aboutx-processKicker {
+    @apply inline-flex items-center rounded-full border border-sky-200/25
+      bg-sky-400/10 px-3 py-2 text-[11px] font-black tracking-[0.14em]
+      text-white/85;
+  }
+
+  .aboutx-processTitle { @apply mt-3 text-[18px] font-black text-white/95; }
+
+  .aboutx-processSub {
+    @apply mt-2 text-[17px] leading-[1.75] text-white/75;
+    max-width: 68ch;
+  }
+
+  /* ====== TIMELINE ====== */
+  .aboutx-steps--line {
+    @apply relative mt-6 grid gap-6;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .aboutx-step2 { @apply relative z-[1] flex min-w-0 flex-col items-start; } /* min-w-0 evita texto que rompe */
+  .aboutx-stepTop { @apply relative mb-3 flex items-center; }
+
+  .aboutx-stepDot {
+    @apply relative grid h-10 w-10 place-items-center rounded-xl border border-sky-300/30 bg-sky-400/15;
+    box-shadow:
+      0 0 0 6px rgba(56,189,248,0.06),
+      0 12px 28px rgba(56,189,248,0.18);
+  }
+
+  .aboutx-stepDot span {
+    @apply text-[15px] font-black tracking-[0.05em];
+    color: rgba(125, 211, 252, 0.95);
+    text-shadow: 0 0 14px rgba(56,189,248,0.55);
+  }
+
+  .aboutx-stepCard {
+    @apply w-full min-w-0 rounded-2xl border border-white/10 bg-[#0a0e16]/65 p-4 backdrop-blur-md;
+    transition: transform .2s ease, border-color .2s ease;
+  }
+
+  .aboutx-stepCard:hover {
+    transform: translateY(-3px);
+    border-color: rgba(56,189,248,.25);
+  }
+
+  .aboutx-stepTitle {
+    @apply text-[16px] font-black leading-[1.25] tracking-[-0.01em] text-white/95;
+  }
+
+  .aboutx-stepDesc {
+    @apply mt-2 text-[14px] leading-[1.75] text-white/80;
+  }
+
+  /* Tablet: 2 columnas */
+  @media (max-width: 1023px) {
+    .aboutx-steps--line { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  /* Mobile: 1 columna + línea vertical */
+  @media (max-width: 640px) {
+    .aboutx-process { @apply p-4; }
+
+    .aboutx-steps--line { grid-template-columns: 1fr; }
+
+    .aboutx-steps--line::before {
+      content: "";
+      position: absolute;
+      left: 19px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(
+        180deg,
+        rgba(56,189,248,0),
+        rgba(56,189,248,0.45),
+        rgba(56,189,248,0)
+      );
+    }
+
+    .aboutx-step2 { @apply pl-10; }
+    .aboutx-stepTop { position: absolute; left: 0; top: 0; }
+  }
+
+  /* Desktop: línea horizontal + caja más ancha PERO RESPONSIVE */
+  @media (min-width: 1024px) {
+    .aboutx-steps--line::before {
+      content: "";
+      position: absolute;
+      left: 28px;
+      right: 28px;
+      top: 18px;
+      height: 2px;
+      background: linear-gradient(
+        90deg,
+        rgba(56,189,248,0),
+        rgba(56,189,248,0.35),
+        rgba(56,189,248,0)
+      );
+      opacity: 0.9;
+      z-index: 0;
+    }
+
+    /* “más ancho” sin hacks: dejamos el bloque ocupar todo su lado,
+       y aumentamos el ancho real del contenedor solo un poco */
+    .aboutx-wrap { width: min(1240px, 94%); }
+
+    .aboutx-process { padding: 28px; }
+  }
+
+  @media (min-width: 1280px) {
+    .aboutx-wrap { width: min(1280px, 94%); }
+    .aboutx-process { padding: 30px; }
+  }
+}

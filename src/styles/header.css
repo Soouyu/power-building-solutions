@@ -1,0 +1,115 @@
+@layer components 
+{
+  .pws-header {
+    position: fixed;
+    top: 0;
+    inset-inline: 0;
+    z-index: 50;
+
+    /* 🔒 escondido al inicio */
+    transform: translateY(-100%);
+    opacity: 0;
+
+    /* fondo CLARO y translúcido (deja ver la marca) */
+    background: rgba(255, 255, 255, .60);
+    backdrop-filter: blur(12px);
+
+    transition:
+      transform .35s ease,
+      opacity .35s ease,
+      background .3s ease;
+  }
+
+  /* ✅ aparece al hacer scroll */
+  .pws-header.is-scrolled {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  
+  .pws-headerInner {
+    max-width: 1280px;
+    margin: 0 auto;
+    height: 99px;          /* 👈 antes 80 */
+    padding: 0 18px;       /* 👈 un poquito más */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;             /* 👈 aire entre logo y nav */
+  }
+
+  @media (min-width: 768px) {
+    .pws-headerInner { padding: 0 32px; }
+  }
+
+  /* Logo */
+  .pws-logo img {
+    height: 99px;
+    width: auto;
+    display: block;
+  }
+
+  /* Nav */
+  .pws-navDesktop {
+    display: none;
+    gap: 32px;
+    align-items: center;
+  }
+
+  @media (min-width: 1024px) {
+    .pws-navDesktop { display: flex; }
+    .pws-headerInner {
+        margin-left: 180px;   /* ← controla qué tan a la izquierda */
+        margin-right: auto;  /* ← quita el centrado */
+    }
+  }
+
+  .pws-navLink {
+    font-weight: 600;
+    font-size: 19px;
+    letter-spacing: 0.02em;
+    color: hsl(var(--foreground));
+    transition: color .2s ease;
+  }
+  
+/* BOTÓN VERDE */
+.pws-navDesktop .cta,
+.pws-navDesktop a[href="#quote"] {
+  font-size: 18px;        /* tamaño de letra */
+  padding: 14px 26px;     /* tamaño de la caja */
+  border-radius: 10px;    /* bordes suaves */
+  font-weight: 700;
+}
+  .pws-navLink:hover {
+    color: hsl(var(--primary));
+    transform: translateY(-1px);
+  }
+
+  /* Mobile */
+  .pws-menuBtn {
+    color: hsl(var(--foreground));
+  }
+
+  @media (min-width: 1024px) {
+    .pws-menuBtn { display: none; }
+  }
+  @media (max-width: 767px){
+   .pws-headerInner {
+     height: 85px;
+     padding: 0 16px;
+   } 
+   .pws-logo img {
+     height: 78px;
+   }
+  }
+
+  .pws-navMobile {
+    background: rgba(255,255,255,.85);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid hsl(var(--border));
+    padding: 24px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+}
