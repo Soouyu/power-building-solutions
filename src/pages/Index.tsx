@@ -2,16 +2,19 @@ import { lazy, Suspense, useEffect, useState } from "react";
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import IntroAnimation from "@/components/IntroAnimation";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 import AOS from "aos";
 import "aos/dist/aos.css";
 
 // Secciones below-fold: cargadas en chunks paralelos independientes
-const AboutSection    = lazy(() => import("@/components/AboutSection"));
+const AboutSection = lazy(() => import("@/components/AboutSection"));
 const ServicesSection = lazy(() => import("@/components/ServicesSection"));
-const TrustedBy       = lazy(() => import("@/components/TrustedBy"));
-const QuoteSection    = lazy(() => import("@/components/QuoteSection"));
-const Footer          = lazy(() => import("@/components/Footer"));
+const WhyChooseUs = lazy(() => import("@/components/WhyChooseUs"));
+const ProjectsSection = lazy(() => import("@/components/ProjectsSection"));
+const TrustedBy = lazy(() => import("@/components/TrustedBy"));
+const QuoteSection = lazy(() => import("@/components/QuoteSection"));
+const Footer = lazy(() => import("@/components/Footer"));
 
 const Index = () => {
   const [showIntro, setShowIntro] = useState(true);
@@ -51,6 +54,7 @@ const Index = () => {
         <Suspense fallback={null}>
           <AboutSection />
           <ServicesSection />
+
           <TrustedBy />
           <QuoteSection />
         </Suspense>
@@ -59,6 +63,8 @@ const Index = () => {
       <Suspense fallback={null}>
         <Footer />
       </Suspense>
+
+      <WhatsAppButton ready={!showIntro} />
     </div>
   );
 };

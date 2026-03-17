@@ -20,7 +20,8 @@
   }
 
 .pws-heroAccent{
-  color: #7ec3ff !important;
+  color: #1a73e8 !important;
+  text-shadow: 0 2px 16px rgba(26, 115, 232, 0.35);
 }
 
   .pws-header{
@@ -289,5 +290,83 @@
     .pws-max .grid {
       text-align: left;
     }
+
+    .pws-statsGrid {
+      justify-content: center;
+    }
+  }
+
+  /* =============================================
+     STATS GRID — contador animado
+  ============================================= */
+
+  .pws-statsGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  /* Cada item: oculto hasta que is-ready */
+  .pws-statItem {
+    opacity: 0;
+    transform: translateY(20px) scale(0.88);
+  }
+
+  /* Entrada escalonada al terminar el intro */
+  .pws-hero.is-ready .pws-statItem--0 {
+    animation: statItemIn 0.7s cubic-bezier(.34, 1.45, .64, 1) 1.05s forwards;
+  }
+  .pws-hero.is-ready .pws-statItem--1 {
+    animation: statItemIn 0.7s cubic-bezier(.34, 1.45, .64, 1) 1.22s forwards;
+  }
+  .pws-hero.is-ready .pws-statItem--2 {
+    animation: statItemIn 0.7s cubic-bezier(.34, 1.45, .64, 1) 1.39s forwards;
+  }
+
+  @keyframes statItemIn {
+    0%   { opacity: 0; transform: translateY(20px) scale(0.88); }
+    60%  { opacity: 1; transform: translateY(-3px) scale(1.04); }
+    100% { opacity: 1; transform: translateY(0)    scale(1);    }
+  }
+
+  /* Número */
+  .pws-statNum {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 800;
+    color: #fff;
+    line-height: 1;
+    display: inline-block;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+  }
+
+  /* Pop al terminar el conteo */
+  .pws-statNum.is-done {
+    animation: statPop 0.45s cubic-bezier(.34, 1.56, .64, 1) forwards;
+  }
+
+  @keyframes statPop {
+    0%   { transform: scale(1); }
+    45%  { transform: scale(1.22); color: #60a5fa; }
+    100% { transform: scale(1);   color: #fff;     }
+  }
+
+  .pws-statLabel {
+    color: rgba(255, 255, 255, 0.70);
+    font-size: clamp(0.8rem, 1.5vw, 1rem);
+    margin-top: 0.35rem;
+  }
+
+  /* Accesibilidad: respeta prefers-reduced-motion */
+  @media (prefers-reduced-motion: reduce) {
+    .pws-statItem {
+      opacity: 1 !important;
+      transform: none !important;
+      animation: none !important;
+    }
+    .pws-statNum.is-done { animation: none !important; }
   }
 }

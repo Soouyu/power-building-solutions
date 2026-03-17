@@ -165,7 +165,7 @@ const AboutSection = () => {
           </div>
 
           <div className="aboutx-actions" data-aos="fade-up" data-aos-delay="520">
-            <a href="#contact" className="aboutx-cta">
+            <a href="#quote" className="aboutx-cta">
               Get a Quote
             </a>
             <a href="#projects" className="aboutx-cta ghost">

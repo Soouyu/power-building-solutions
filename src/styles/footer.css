@@ -1,3 +1,121 @@
+/* ============================================================
+   WHATSAPP FLOATING BUTTON
+   ============================================================ */
+
+/* Contenedor posicionado fixed */
+.pws-wa-wrap {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+
+  /* oculto hasta que termine el intro */
+  opacity: 0;
+  transform: translateY(16px) scale(0.9);
+  pointer-events: none;
+  transition: opacity 0.45s cubic-bezier(.16,1,.3,1), transform 0.45s cubic-bezier(.16,1,.3,1);
+}
+
+.pws-wa-wrap.is-ready {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+/* Burbuja de mensaje */
+.pws-wa-bubble {
+  background: #fff;
+  color: #111;
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.4;
+  padding: 10px 14px;
+  border-radius: 16px 16px 4px 16px;
+  box-shadow: 0 6px 24px rgba(0,0,0,.15), 0 1px 4px rgba(0,0,0,.08);
+  white-space: nowrap;
+  position: relative;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  opacity: 0;
+  transform: translateY(10px) scale(0.92);
+  transition:
+    opacity  0.4s cubic-bezier(.16,1,.3,1),
+    transform 0.4s cubic-bezier(.16,1,.3,1);
+}
+
+.pws-wa-bubble.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Ícono dentro de la burbuja */
+.pws-wa-bubble-icon {
+  color: #25d366;
+  flex-shrink: 0;
+}
+
+/* Colita de la burbuja (abajo-derecha) */
+.pws-wa-bubble-tail {
+  position: absolute;
+  bottom: -7px;
+  right: 18px;
+  width: 14px;
+  height: 8px;
+  background: #fff;
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+}
+
+/* Botón */
+.pws-wa-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #25d366;
+  color: #fff;
+  padding: 13px 20px 13px 16px;
+  border-radius: 50px;
+  box-shadow: 0 6px 28px rgba(37, 211, 102, 0.45), 0 2px 8px rgba(0,0,0,.18);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.01em;
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+  white-space: nowrap;
+}
+
+.pws-wa-btn:hover {
+  background: #1ebe5d;
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 10px 36px rgba(37, 211, 102, 0.55), 0 3px 10px rgba(0,0,0,.2);
+}
+
+.pws-wa-icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+/* Mobile: solo ícono circular */
+@media (max-width: 640px) {
+  .pws-wa-wrap { bottom: 20px; right: 20px; }
+
+  .pws-wa-btn {
+    padding: 14px;
+    border-radius: 50%;
+  }
+  .pws-wa-label { display: none; }
+  .pws-wa-icon { width: 28px; height: 28px; }
+
+  .pws-wa-bubble { font-size: 12.5px; padding: 9px 12px; }
+}
+
 @layer components {
 
 /* ============================================================
@@ -436,6 +554,39 @@
 
   .ft-legal {
     gap: 14px;
+  }
+}
+
+/* ── ENTRANCE ANIMATIONS ────────────────────────────── */
+
+.ft-body > * {
+  opacity: 0;
+  transform: translateY(28px) scale(0.97);
+  filter: blur(3px);
+  transition:
+    opacity   0.65s ease,
+    transform 0.65s cubic-bezier(.16,1,.3,1),
+    filter    0.65s ease;
+}
+
+.ft.ft-in .ft-body > *:nth-child(1) { opacity:1; transform:none; filter:blur(0); transition-delay:0.08s; }
+.ft.ft-in .ft-body > *:nth-child(2) { opacity:1; transform:none; filter:blur(0); transition-delay:0.18s; }
+.ft.ft-in .ft-body > *:nth-child(3) { opacity:1; transform:none; filter:blur(0); transition-delay:0.28s; }
+.ft.ft-in .ft-body > *:nth-child(4) { opacity:1; transform:none; filter:blur(0); transition-delay:0.38s; }
+
+.ft-bottom {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.6s ease 0.48s, transform 0.6s cubic-bezier(.16,1,.3,1) 0.48s;
+}
+.ft.ft-in .ft-bottom {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ft-body > *, .ft-bottom {
+    transition: none; opacity: 1; transform: none; filter: none;
   }
 }
 

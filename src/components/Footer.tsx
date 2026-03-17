@@ -1,4 +1,6 @@
+import React from "react";
 import { Building2, Phone, Mail, MapPin, Clock, ArrowUp, Globe, Share2, Users } from "lucide-react";
+import { useSectionReveal } from "@/hooks/useSectionReveal";
 
 const QUICK_LINKS = [
   { label: "About Us",       href: "#about"    },
@@ -28,8 +30,10 @@ const SOCIALS = [
   { Icon: Users,   href: "#", label: "Community" },
 ];
 
-const Footer = () => (
-  <footer className="ft">
+const Footer = () => {
+  const { ref, inView } = useSectionReveal("-40px 0px");
+  return (
+  <footer ref={ref as React.RefObject<HTMLElement>} className={`ft${inView ? " ft-in" : ""}`}>
     {/* decorative glow orbes */}
     <div className="ft-glow ft-glow--a" aria-hidden="true" />
     <div className="ft-glow ft-glow--b" aria-hidden="true" />
@@ -134,6 +138,7 @@ const Footer = () => (
       </a>
     </div>
   </footer>
-);
+  );
+};
 
 export default Footer;

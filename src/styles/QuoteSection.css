@@ -172,14 +172,29 @@
 
   /* entrance */
   opacity: 0;
-  transform: translateX(-40px);
-  transition: opacity 0.75s ease 0.25s, transform 0.75s cubic-bezier(.2,.8,.2,1) 0.25s;
+  transform: translateX(-44px) scale(0.97);
+  filter: blur(4px);
+  transition:
+    opacity   0.8s ease 0.2s,
+    transform 0.8s cubic-bezier(.16,1,.3,1) 0.2s,
+    filter    0.8s ease 0.2s;
 }
 
 .quoteFX.in-view .quoteFX-left {
   opacity: 1;
-  transform: translateX(0);
+  transform: none;
+  filter: blur(0);
 }
+
+/* Stagger de pasos dentro del panel izquierdo */
+.quoteFX-step {
+  opacity: 0;
+  transform: translateX(-16px);
+  transition: opacity 0.45s ease, transform 0.45s cubic-bezier(.16,1,.3,1);
+}
+.quoteFX.in-view .quoteFX-step:nth-child(1) { opacity:1; transform:none; transition-delay:0.45s; }
+.quoteFX.in-view .quoteFX-step:nth-child(2) { opacity:1; transform:none; transition-delay:0.58s; }
+.quoteFX.in-view .quoteFX-step:nth-child(3) { opacity:1; transform:none; transition-delay:0.71s; }
 
 /* animated icon */
 .quoteFX-iconWrap {
@@ -337,13 +352,18 @@
 
   /* entrance */
   opacity: 0;
-  transform: translateX(40px);
-  transition: opacity 0.75s ease 0.35s, transform 0.75s cubic-bezier(.2,.8,.2,1) 0.35s;
+  transform: translateX(44px) scale(0.96);
+  filter: blur(5px);
+  transition:
+    opacity   0.8s ease 0.3s,
+    transform 0.8s cubic-bezier(.16,1,.3,1) 0.3s,
+    filter    0.8s ease 0.3s;
 }
 
 .quoteFX.in-view .quoteFX-card {
   opacity: 1;
-  transform: translateX(0);
+  transform: none;
+  filter: blur(0);
 }
 
 /* form header */
@@ -614,10 +634,12 @@
   .quoteFX,
   .quoteFX-topHeader,
   .quoteFX-left,
+  .quoteFX-step,
   .quoteFX-card {
     transition: none;
     opacity: 1;
     transform: none;
+    filter: none;
   }
 }
 

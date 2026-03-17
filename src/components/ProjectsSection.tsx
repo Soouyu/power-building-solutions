@@ -1,4 +1,5 @@
-import { useMemo, useRef, useState } from "react";
+import React, { useMemo } from "react";
+import { useSectionReveal } from "@/hooks/useSectionReveal";
 
 import renewImage from "@/assets/renew.jpeg";
 import idea1 from "@/assets/porfolio/idea1.jpeg";
@@ -14,6 +15,7 @@ type Project = {
 };
 
 export default function ProjectsSection() {
+  const { ref, inView } = useSectionReveal();
   const projects: Project[] = useMemo(
     () => [
       {
@@ -49,9 +51,13 @@ export default function ProjectsSection() {
   );
 
   return (
-    <section id="projects" className="section-padding bg-muted">
+    <section
+      ref={ref as React.RefObject<HTMLElement>}
+      id="projects"
+      className={`section-padding bg-muted prjSec${inView ? " prj-in" : ""}`}
+    >
       <div className="container-max">
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="prjHdr text-center max-w-3xl mx-auto mb-16">
           <span className="text-secondary font-semibold uppercase tracking-wider text-sm">Our Portfolio</span>
           <h2 className="heading-section mt-2 mb-4">Our Projects</h2>
           <p className="text-body">Real transformations from small renovation jobs to finished spaces.</p>
@@ -73,12 +79,12 @@ export default function ProjectsSection() {
               <div className="projectContent">
                 <h3 className="projectTitle">{project.title}</h3>
                 <p className="projectDesc">{project.description}</p>
-                <button className="projectBtn" aria-label={`View details of ${project.title}`}>
-                  <span>View Project</span>
+                <a href="#quote" className="projectBtn" aria-label={`Request a quote for ${project.title}`}>
+                  <span>Request a Quote</span>
                   <svg className="projectBtnIcon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
-                </button>
+                </a>
               </div>
             </article>
           ))}

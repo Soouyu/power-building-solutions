@@ -1,3 +1,4 @@
+import React from "react";
 import {
   CheckCircle,
   Shield,
@@ -8,6 +9,7 @@ import {
   Quote,
   Sparkles,
 } from "lucide-react";
+import { useSectionReveal } from "@/hooks/useSectionReveal";
 
 import bgWhy from "@/assets/icons/fondo-whyus.png";
 import icoHelmet from "@/assets/icons/caso-png-icono.png";
@@ -16,6 +18,7 @@ import icoLike from "@/assets/icons/like-png-icono.png";
 import workerIcon from "@/assets/icons/worker-icon.png";
 
 const WhyChooseUs = () => {
+  const { ref, inView } = useSectionReveal();
   const reasons = [
     {
       icon: CheckCircle,
@@ -69,8 +72,9 @@ const WhyChooseUs = () => {
 
   return (
     <section
+      ref={ref as React.RefObject<HTMLElement>}
       id="why-us"
-      className="wcu"
+      className={`wcu${inView ? " is-in" : ""}`}
       style={
         {
           "--wcu-bg": `url(${bgWhy})`,
@@ -117,10 +121,10 @@ const WhyChooseUs = () => {
           </div>
 
           <div className="wcu-workerCardCta">
-            <a href="#contact" className="wcu-workerBtn">
+            <a href="#quote" className="wcu-workerBtn">
               Get a Quote
             </a>
-            <a href="tel:+10000000000" className="wcu-workerBtn ghost">
+            <a href="tel:+16479179646" className="wcu-workerBtn ghost">
               Call
             </a>
           </div>
@@ -255,7 +259,7 @@ const WhyChooseUs = () => {
               </ul>
 
               <div className="wcu-ctaRow">
-                <a href="#contact" className="wcu-cta">
+                <a href="#quote" className="wcu-cta">
                   Get a Quote
                 </a>
                 <a href="#projects" className="wcu-cta ghost">

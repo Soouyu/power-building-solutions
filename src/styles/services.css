@@ -346,22 +346,42 @@
 
 .svcCard {
   opacity: 0;
-  transform: translateY(36px);
-  transition: opacity 0.65s ease, transform 0.65s cubic-bezier(.2,.8,.2,1);
+  transform: translateY(44px) scale(0.93);
+  filter: blur(4px);
+  transition:
+    opacity   0.65s ease,
+    transform 0.65s cubic-bezier(.16,1,.3,1),
+    filter    0.65s ease,
+    outline-color .3s ease,
+    box-shadow    .3s ease;
 }
 
-.svcNew.in-view .svcCard:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0.18s; }
-.svcNew.in-view .svcCard:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.28s; }
-.svcNew.in-view .svcCard:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 0.38s; }
-.svcNew.in-view .svcCard:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: 0.48s; }
-.svcNew.in-view .svcCard:nth-child(5) { opacity: 1; transform: translateY(0); transition-delay: 0.58s; }
-.svcNew.in-view .svcCard:nth-child(6) { opacity: 1; transform: translateY(0); transition-delay: 0.68s; }
+.svcNew.in-view .svcCard:nth-child(1) { opacity:1; transform:none; filter:blur(0); transition-delay:0.12s; }
+.svcNew.in-view .svcCard:nth-child(2) { opacity:1; transform:none; filter:blur(0); transition-delay:0.22s; }
+.svcNew.in-view .svcCard:nth-child(3) { opacity:1; transform:none; filter:blur(0); transition-delay:0.32s; }
+.svcNew.in-view .svcCard:nth-child(4) { opacity:1; transform:none; filter:blur(0); transition-delay:0.42s; }
+.svcNew.in-view .svcCard:nth-child(5) { opacity:1; transform:none; filter:blur(0); transition-delay:0.52s; }
+.svcNew.in-view .svcCard:nth-child(6) { opacity:1; transform:none; filter:blur(0); transition-delay:0.62s; }
+
+/* header más dramático */
+.svcHeader {
+  opacity: 0;
+  transform: translateY(36px) scale(0.97);
+  filter: blur(3px);
+  transition: opacity 0.8s ease 0.05s, transform 0.8s cubic-bezier(.16,1,.3,1) 0.05s, filter 0.8s ease 0.05s;
+}
+.svcNew.in-view .svcHeader {
+  opacity: 1;
+  transform: none;
+  filter: blur(0);
+}
 
 @media (prefers-reduced-motion: reduce) {
   .svcHeader, .svcCard {
     transition: none;
     opacity: 1;
     transform: none;
+    filter: none;
   }
 }
 

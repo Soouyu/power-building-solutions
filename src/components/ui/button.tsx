@@ -17,8 +17,8 @@ const buttonVariants = cva(
 				link: "text-primary underline-offset-4 hover:underline",
 
 
-				cta: "bg-blue-600 text-white hover:bg-blue-700 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5",
-				hero: "bg-blue-500 text-white hover:bg-blue-600 shadow-xl hover:shadow-2xl transform hover:-translate-y-1 text-base md:text-lg px-8 py-6",
+				cta: "bg-[#0c2461] text-white hover:bg-[#091d4e] shadow-lg hover:shadow-xl transform hover:-translate-y-0.5",
+				hero: "bg-[#1d4ed8] text-white hover:bg-[#1e40af] shadow-xl hover:shadow-2xl transform hover:-translate-y-1 text-base md:text-lg px-8 py-6",
 
 				heroOutline: "border-2 border-card bg-transparent text-card hover:bg-card hover:text-primary text-base md:text-lg px-8 py-6",
 			},

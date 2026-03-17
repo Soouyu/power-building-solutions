@@ -103,13 +103,13 @@ const QuoteSection = () => {
 
             {/* contact */}
             <div className="quoteFX-contact">
-              <a href="tel:+16478881234" className="quoteFX-contactItem">
+              <a href="tel:+16479179646" className="quoteFX-contactItem">
                 <span className="quoteFX-contactIcon"><Phone size={15} /></span>
-                +1 (647) 888-1234
+                +1 (647) 917-9646
               </a>
-              <a href="mailto:info@powerbuildingsolutions.ca" className="quoteFX-contactItem">
+              <a href="mailto:powerconstructiongc@gmail.com" className="quoteFX-contactItem">
                 <span className="quoteFX-contactIcon"><Mail size={15} /></span>
-                info@powerbuildingsolutions.ca
+                powerconstructiongc@gmail.com
               </a>
             </div>
 
