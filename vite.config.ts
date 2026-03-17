@@ -17,53 +17,37 @@ export default defineConfig(({ mode }) => ({
     react(),
     mode === "development" && componentTagger(),
   ].filter(Boolean),
-
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
   },
-
   build: {
     chunkSizeWarningLimit: 900,
     rollupOptions: {
       output: {
-        // Función: cubre TODOS los node_modules para evitar que Rollup
-        // genere un "vendor-misc" con dependencias de React que carguen
-        // antes que React → corrige "createContext of undefined".
-        manualChunks(id) {
-          if (!id.includes("node_modules")) return;
-
-          // framer-motion es grande; va sola para cacheo independiente
-          if (id.includes("framer-motion") || id.includes("/motion/")) {
-            return "vendor-motion";
-          }
-
-          // React + scheduler + radix-ui + lucide JUNTOS
-          // Radix llama React.createContext en tiempo de módulo,
-          // por lo que deben compartir chunk con React
-          if (
-            id.includes("/react/") ||
-            id.includes("/react-dom/") ||
-            id.includes("/react-router") ||
-            id.includes("/scheduler/") ||
-            id.includes("/use-sync-external-store/") ||
-            id.includes("@radix-ui") ||
-            id.includes("lucide-react")
-          ) {
-            return "vendor-react-ui";
-          }
-
-          // tanstack / query
-          if (id.includes("@tanstack")) {
-            return "vendor-query";
-          }
-
-          // resto (sonner, class-variance-authority, clsx, etc.)
-          return "vendor-misc";
+        manualChunks: {
+          "vendor-react": ["react", "react-dom", "react-router-dom"],
+          "vendor-ui": [
+            "@radix-ui/react-dialog",
+            "@radix-ui/react-dropdown-menu",
+            "@radix-ui/react-select",
+            "@radix-ui/react-toast",
+            "@radix-ui/react-tooltip",
+            "@radix-ui/react-tabs",
+            "@radix-ui/react-slot",
+            "lucide-react",
+          ],
+          "vendor-motion": ["framer-motion"],
+          "vendor-query": ["@tanstack/react-query"],
+          "vendor-forms": ["react-hook-form", "@hookform/resolvers", "zod"],
+          "vendor-misc": [
+            "sonner", "cmdk", "vaul", "clsx",
+            "class-variance-authority", "tailwind-merge",
+            "date-fns", "embla-carousel-react",
+          ],
         },
       },
     },
   },
 }));
-
