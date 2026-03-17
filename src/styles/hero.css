@@ -22,7 +22,7 @@
 .pws-heroAccent{
   color: #7ec3ff !important;
 }
-`
+
   .pws-header{
     position: fixed;
     top: 0;
@@ -65,10 +65,10 @@
 }
 
 .pws-heroMedia.is-hidden{
-  opacity:0;
+  opacity: 0;
   transform: scale(1.08);
-  filter: blur(2px) saturate(1.0) contrast(1.0);
-} 
+  /* ❌ sin blur en transición → evita repaint continuo */
+}
 .pws-heroOverlay 
   {
     position: absolute;
@@ -89,15 +89,7 @@
         rgba(15, 24, 32, 0.82) 100%
       );
   }
-  .pws-heroOverlay::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.16'/%3E%3C/svg%3E");
-    mix-blend-mode: overlay;
-    opacity: .22;
-    pointer-events:none;
-  }
+  /* ❌ SVG noise + mix-blend-mode eliminado → era muy costoso en compositing */
 
   .pws-container{
     width: 100%;
@@ -108,38 +100,53 @@
 
   
 
-  /* ===== Intro uniforme (TODOS a la vez) ===== */
-  .pws-in{
+  /* ==============================================
+     FONDO: invisible hasta que el intro termina
+  ============================================== */
+  .pws-heroBg {
     opacity: 0;
-    transform: translateY(22px);
-    filter: blur(12px);
-
-    animation: pwsIntro 1.9s cubic-bezier(.16,1,.3,1) forwards;
-    animation-delay: 1.4s; /* ⬅️ aquí controlas cuánto se demora en empezar */
-    will-change: transform, opacity, filter;
+    /* sin is-ready → fondo oculto mientras dura el intro */
   }
 
-  @keyframes pwsIntro{
-    0%{
-      opacity: 0;
-      transform: translateY(22px);
-      filter: blur(12px);
-    }
-    70%{
-      opacity: .9;
-      transform: translateY(6px);
-      filter: blur(2px);
-    }
-    100%{
-      opacity: 1;
-      transform: translateY(0);
-      filter: blur(0);
-    }
+  .pws-hero.is-ready .pws-heroBg {
+    animation: heroBgReveal 1.1s cubic-bezier(.16, 1, .3, 1) forwards;
+  }
+
+  @keyframes heroBgReveal {
+    0%   { opacity: 0; transform: scale(1.06); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+
+  /* ==============================================
+     CONTENIDO: congelado hasta is-ready, luego
+     entra escalonado por orden de aparición
+  ============================================== */
+  .pws-in {
+    opacity: 0;
+    transform: translateY(20px);
+    will-change: transform, opacity;
+  }
+
+  /* Dispara las animaciones solo cuando el fondo ya está listo */
+  .pws-hero.is-ready .pws-in {
+    animation: pwsIntro 1.1s cubic-bezier(.16, 1, .3, 1) forwards;
+  }
+
+  /* Escalonado natural por orden en el DOM */
+  .pws-max .pws-in:nth-child(1) { animation-delay: 0.35s; }
+  .pws-max .pws-in:nth-child(2) { animation-delay: 0.55s; }
+  .pws-max .pws-in:nth-child(3) { animation-delay: 0.72s; }
+  .pws-max .pws-in:nth-child(4) { animation-delay: 0.90s; }
+
+  @keyframes pwsIntro {
+    0%   { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
   }
 
   /* Accesibilidad */
-  @media (prefers-reduced-motion: reduce){
-    .pws-in{ opacity:1; transform:none; filter:none; animation:none; }
+  @media (prefers-reduced-motion: reduce) {
+    .pws-heroBg       { opacity: 1 !important; animation: none !important; }
+    .pws-in           { opacity: 1 !important; transform: none !important; animation: none !important; }
   }
 
   @media (min-width: 768px){
@@ -171,6 +178,22 @@
     justify-content: center;
     pointer-events: none;
     z-index: 2;
+    /* invisible hasta is-ready */
+    opacity: 0;
+  }
+
+  .pws-hero.is-ready .pws-heroIconWrap {
+    animation: heroIconIn 1s cubic-bezier(.34, 1.45, .64, 1) 0.65s forwards;
+  }
+
+  @keyframes heroIconIn {
+    0%   { opacity: 0; transform: translateY(calc(-50% + 18px)) scale(0.72) rotate(-12deg); }
+    60%  { opacity: 1; transform: translateY(calc(-50% - 4px))  scale(1.04) rotate(2deg);  }
+    100% { opacity: 1; transform: translateY(-50%)               scale(1)    rotate(0deg);  }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pws-heroIconWrap { opacity: 1 !important; animation: none !important; }
   }
 
   .pws-heroIconRing {

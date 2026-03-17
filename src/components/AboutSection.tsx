@@ -3,8 +3,10 @@ import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import { CheckCircle, Shield, ClipboardCheck, Users } from "lucide-react";
 import bgWhy from "@/assets/icons/fondo-whyus.png";
+import { useSectionReveal } from "@/hooks/useSectionReveal";
 
 const AboutSection = () => {
+  const { ref, inView } = useSectionReveal();
   const pills = [
     "Residential",
     "Commercial",
@@ -81,8 +83,9 @@ const AboutSection = () => {
 
   return (
     <section
+      ref={ref as React.RefObject<HTMLElement>}
       id="about"
-      className="aboutx"
+      className={`aboutx${inView ? " in-view" : ""}`}
       style={{ "--aboutx-bg": `url(${bgWhy})` } as React.CSSProperties}
     >
       {/* Fondo + scrim */}

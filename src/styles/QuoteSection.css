@@ -1,244 +1,508 @@
 @layer components {
-  /* =========================
-     QUOTE SECTION — FIXED BG + RISE EFFECT
-     ========================= */
 
-  .quoteFX {
-    position: relative;
-    padding: 96px 0;
-    overflow: hidden;
-    isolation: isolate;
+/* =========================
+   QUOTE SECTION
+========================= */
 
-    background-image: var(--quote-bg);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-  }
+.quoteFX {
+  position: relative;
+  padding: 100px 0;
+  overflow: hidden;
+  isolation: isolate;
+  content-visibility: auto;
+  contain-intrinsic-size: 0 700px;
 
-  /* Overlay oscuro elegante */
-  .quoteFX::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    background:
-      radial-gradient(circle at 20% 25%, rgba(0,0,0,0.35), transparent 55%),
-      radial-gradient(circle at 80% 30%, rgba(0,0,0,0.25), transparent 60%),
-      linear-gradient(
-        180deg,
-        rgba(5,10,18,0.75) 0%,
-        rgba(5,10,18,0.65) 45%,
-        rgba(5,10,18,0.85) 100%
-      );
-  }
+  background-image: var(--quote-bg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
 
-  .quoteFX-container {
-    position: relative;
-    z-index: 1;
-  }
+  /* entrance — hidden until .in-view */
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
 
+@media (min-width: 1024px) {
+  .quoteFX { background-attachment: fixed; }
+}
+
+.quoteFX.in-view { opacity: 1; }
+
+/* dark overlay */
+.quoteFX-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(circle at 20% 25%, rgba(0,0,0,.38), transparent 55%),
+    radial-gradient(circle at 80% 30%, rgba(0,0,0,.28), transparent 60%),
+    linear-gradient(180deg, rgba(5,10,18,.78) 0%, rgba(5,10,18,.68) 45%, rgba(5,10,18,.88) 100%);
+}
+
+.quoteFX-container {
+  position: relative;
+  z-index: 1;
+}
+
+/* =========================
+   SECTION HEADER (centered)
+========================= */
+
+.quoteFX-topHeader {
+  text-align: center;
+  margin-bottom: 72px;
+
+  /* entrance */
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease 0.1s, transform 0.7s cubic-bezier(.2,.8,.2,1) 0.1s;
+}
+
+.quoteFX.in-view .quoteFX-topHeader {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.quoteFX-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 16px;
+  border-radius: 9999px;
+  border: 1px solid rgba(56,189,248,.28);
+  background: rgba(56,189,248,.08);
+  color: #7dd3fc;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+.quoteFX-mainTitle {
+  font-size: clamp(32px, 4.2vw, 52px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -.02em;
+  color: #f0f9ff;
+  margin-bottom: 16px;
+}
+
+.quoteFX-mainTitle span {
+  background: linear-gradient(90deg, #38bdf8, #818cf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.quoteFX-mainSub {
+  font-size: clamp(15px, 1.1vw, 18px);
+  line-height: 1.75;
+  color: rgba(255,255,255,.60);
+  max-width: 52ch;
+  margin: 0 auto;
+}
+
+/* =========================
+   TWO-COLUMN GRID
+========================= */
+
+.quoteFX-grid {
+  display: grid;
+  gap: 56px;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
   .quoteFX-grid {
-    display: grid;
-    gap: 64px;
+    grid-template-columns: 1fr 1.1fr;
   }
+}
 
-  @media (min-width: 1024px) {
-    .quoteFX-grid {
-      grid-template-columns: 1.1fr 1fr;
-      align-items: center;
-    }
-  }
+/* =========================
+   LEFT PANEL
+========================= */
 
-  /* =========================
-     LEFT CONTENT
-     ========================= */
+.quoteFX-left {
+  color: #fff;
 
-  /* =========================
-     QUOTE — ANIMATED ICON
-  ========================= */
+  /* entrance */
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.75s ease 0.25s, transform 0.75s cubic-bezier(.2,.8,.2,1) 0.25s;
+}
 
-  .quoteFX-iconWrap {
-    position: relative;
-    width: 120px;
-    height: 120px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 20px 0 24px;
-  }
+.quoteFX.in-view .quoteFX-left {
+  opacity: 1;
+  transform: translateX(0);
+}
 
-  .quoteFX-iconRing {
-    position: absolute;
-    border-radius: 50%;
-  }
+/* animated icon */
+.quoteFX-iconWrap {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0 32px;
+}
 
-  .quoteFX-iconRing--outer {
-    inset: 0;
-    border: 2px dashed rgba(56, 189, 248, .22);
-  }
+.quoteFX-iconRing {
+  position: absolute;
+  border-radius: 50%;
+}
 
-  .quoteFX-iconRing--inner {
-    inset: 18px;
-    border: 2px solid transparent;
-    border-top-color: rgba(56, 189, 248, .75);
-    border-bottom-color: rgba(56, 189, 248, .3);
-  }
+.quoteFX-iconRing--outer {
+  inset: 0;
+  border: 2px dashed rgba(56,189,248,.24);
+}
 
-  .quoteFX-iconCenter {
-    position: relative;
-    z-index: 2;
-    width: 68px;
-    height: 68px;
-    background: rgba(255, 255, 255, .07);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #7dd3fc;
-    box-shadow:
-      0 4px 20px rgba(56, 189, 248, .2),
-      0 0 0 1px rgba(56, 189, 248, .12);
-    backdrop-filter: blur(6px);
-  }
+.quoteFX-iconRing--inner {
+  inset: 18px;
+  border: 2px solid transparent;
+  border-top-color: rgba(56,189,248,.80);
+  border-bottom-color: rgba(56,189,248,.28);
+}
 
-  .quoteFX-left {
-    color: #fff;
-    max-width: 560px;
-  }
+.quoteFX-iconCenter {
+  position: relative;
+  z-index: 2;
+  width: 68px;
+  height: 68px;
+  background: rgba(255,255,255,.07);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #7dd3fc;
+  box-shadow:
+    0 4px 20px rgba(56,189,248,.22),
+    0 0 0 1px rgba(56,189,248,.14);
+  backdrop-filter: blur(6px);
+}
 
-  .quoteFX-kicker {
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    font-size: 12px;
-    font-weight: 600;
-    color: #7dd3fc;
-  }
+/* steps */
+.quoteFX-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 32px;
+}
 
-  .quoteFX-title {
-    font-size: clamp(28px, 4vw, 44px);
-    font-weight: 700;
-    margin: 12px 0 20px;
-    line-height: 1.1;
-    color: #ffffff;
-  }
+.quoteFX-step {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
 
-  .quoteFX-title span {
-    color: #38bdf8;
-  }
+.quoteFX-stepNum {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(56,189,248,.12);
+  border: 1px solid rgba(56,189,248,.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 800;
+  color: #7dd3fc;
+  letter-spacing: .04em;
+}
 
-  .quoteFX-lead {
-    font-size: 17px;
-    line-height: 1.7;
-    color: rgba(255,255,255,0.85);
-    margin-bottom: 28px;
-  }
+.quoteFX-stepLabel {
+  font-size: 15px;
+  font-weight: 500;
+  color: rgba(255,255,255,.85);
+  line-height: 1.45;
+  margin: 0;
+}
 
-  .quoteFX-steps {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
+/* divider */
+.quoteFX-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(56,189,248,.25), rgba(56,189,248,.08), transparent);
+  margin-bottom: 28px;
+}
 
-  .quoteFX-steps li {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-bottom: 14px;
-    color: rgba(255,255,255,0.9);
-  }
+/* contact links */
+.quoteFX-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
 
-  .quoteFX-steps span {
-    width: 32px;
-    height: 32px;
-    border-radius: 999px;
-    background: #38bdf8;
-    color: #020617;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 14px;
-  }
+.quoteFX-contactItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255,255,255,.78);
+  text-decoration: none;
+  transition: color .2s ease;
+}
 
-  /* =========================
-     FORM CARD
-     ========================= */
+.quoteFX-contactItem:hover { color: #7dd3fc; }
 
+.quoteFX-contactIcon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(56,189,248,.1);
+  border: 1px solid rgba(56,189,248,.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #7dd3fc;
+  flex-shrink: 0;
+}
+
+/* trust badge */
+.quoteFX-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background: rgba(34,197,94,.1);
+  border: 1px solid rgba(34,197,94,.25);
+  color: #86efac;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .03em;
+}
+
+/* =========================
+   RIGHT — FORM CARD
+========================= */
+
+.quoteFX-card {
+  background: rgba(255,255,255,.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 36px 32px;
+  box-shadow:
+    0 40px 80px rgba(0,0,0,.38),
+    0 0 0 1px rgba(255,255,255,.12);
+
+  /* entrance */
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.75s ease 0.35s, transform 0.75s cubic-bezier(.2,.8,.2,1) 0.35s;
+}
+
+.quoteFX.in-view .quoteFX-card {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* form header */
+.quoteFX-formHeader {
+  margin-bottom: 24px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(2,6,23,.1);
+}
+
+.quoteFX-formHeader h3 {
+  font-size: 20px;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 4px;
+  letter-spacing: -.01em;
+}
+
+.quoteFX-formHeader p {
+  font-size: 14px;
+  color: #64748b;
+}
+
+/* form layout */
+.quoteFX-form {
+  display: grid;
+  gap: 14px;
+}
+
+.quoteFX-row {
+  display: grid;
+  gap: 12px;
+}
+
+@media (min-width: 540px) {
+  .quoteFX-row { grid-template-columns: 1fr 1fr; }
+}
+
+/* field */
+.quoteFX-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.quoteFX-field label {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #334155;
+  letter-spacing: .03em;
+}
+
+/* select */
+.quoteFX-select {
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid hsl(var(--input));
+  background: hsl(var(--background));
+  padding: 0 12px;
+  font-size: 14px;
+  color: hsl(var(--foreground));
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+  width: 100%;
+}
+
+.quoteFX-select:focus {
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 2px rgba(56,189,248,.18);
+}
+
+/* submit button */
+.quoteFX-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  height: 48px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: .04em;
+  background: linear-gradient(135deg, #0ea5e9, #2563eb);
+  box-shadow: 0 8px 28px rgba(14,165,233,.35);
+  transition: opacity .2s ease, transform .2s ease, box-shadow .2s ease;
+  margin-top: 4px;
+}
+
+.quoteFX-submit:hover:not(:disabled) {
+  opacity: .92;
+  transform: translateY(-1px);
+  box-shadow: 0 14px 36px rgba(14,165,233,.42);
+}
+
+.quoteFX-submit:disabled {
+  opacity: .7;
+  cursor: not-allowed;
+}
+
+/* spinner */
+.quoteFX-spinner {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 2.5px solid rgba(255,255,255,.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: quoteSpin .7s linear infinite;
+}
+
+@keyframes quoteSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* legal */
+.quoteFX-legal {
+  font-size: 11px;
+  color: rgba(2,6,23,.45);
+  text-align: center;
+  margin-top: 2px;
+}
+
+/* =========================
+   SUCCESS STATE
+========================= */
+
+.quoteFX-success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 48px 24px;
+  gap: 12px;
+}
+
+.quoteFX-successIcon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(34,197,94,.12);
+  border: 2px solid rgba(34,197,94,.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #22c55e;
+  margin-bottom: 8px;
+  animation: successPop .5s cubic-bezier(.2,.8,.2,1) both;
+}
+
+@keyframes successPop {
+  from { transform: scale(0.6); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+.quoteFX-success h3 {
+  font-size: 22px;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -.01em;
+}
+
+.quoteFX-success p {
+  font-size: 15px;
+  color: #64748b;
+  line-height: 1.6;
+  max-width: 30ch;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1024px) {
+  .quoteFX { background-attachment: scroll; }
+  .quoteFX-grid { gap: 48px; }
+}
+
+@media (max-width: 768px) {
+  .quoteFX { padding: 80px 0; }
+  .quoteFX-container { padding: 0 20px; }
+  .quoteFX-card { padding: 28px 22px; }
+  .quoteFX-topHeader { margin-bottom: 56px; }
+}
+
+@media (max-width: 480px) {
+  .quoteFX { padding: 64px 0; }
+  .quoteFX-card { padding: 24px 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .quoteFX,
+  .quoteFX-topHeader,
+  .quoteFX-left,
   .quoteFX-card {
-    background: rgba(255,255,255,0.92);
-    backdrop-filter: blur(10px);
-    border-radius: 16px;
-    padding: 28px;
-    box-shadow: 0 40px 80px rgba(0,0,0,0.35);
+    transition: none;
+    opacity: 1;
+    transform: none;
   }
+}
 
-  .quoteFX-form {
-    display: grid;
-    gap: 16px;
-  }
-
-  .quoteFX-row {
-    display: grid;
-    gap: 12px;
-  }
-
-  @media (min-width: 640px) {
-    .quoteFX-row {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-
-  .quoteFX-select {
-    height: 40px;
-    border-radius: 8px;
-    border: 1px solid hsl(var(--input));
-    background: hsl(var(--background));
-    padding: 0 12px;
-    font-size: 14px;
-  }
-
-  .quoteFX-legal {
-    font-size: 11px;
-    color: rgba(2,6,23,0.55);
-    text-align: center;
-    margin-top: 4px;
-  }
-
-  /* =========================
-     RISE ANIMATION
-     ========================= */
-
-  .quoteFX-up {
-    animation: quoteUp 0.85s cubic-bezier(.2,.8,.2,1) both;
-  }
-
-  .quoteFX-up:nth-child(1) { animation-delay: .05s; }
-  .quoteFX-up:nth-child(2) { animation-delay: .14s; }
-
-  @keyframes quoteUp {
-    from {
-      opacity: 0;
-      transform: translateY(22px);
-      filter: blur(4px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-      filter: blur(0);
-    }
-  }
-
-  /* Mobile fix */
-  @media (max-width: 1024px) {
-    .quoteFX {
-      background-attachment: scroll;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .quoteFX-up {
-      animation: none;
-    }
-  }
 }

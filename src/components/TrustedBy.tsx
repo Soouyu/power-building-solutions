@@ -1,20 +1,28 @@
+import React from "react";
 import { motion } from "framer-motion";
 import { Building2, Award } from "lucide-react";
+import { useSectionReveal } from "@/hooks/useSectionReveal";
 
 // Importa tus logos reales aquí
 import logo1 from "@/assets/Trusted/40-dunpar.png";
 import logo2 from "@/assets/Trusted/ari-build.png";
-import logo3 from "@/assets/Trusted/empresa-fake.jpeg";
+import logo3 from "@/assets/Trusted/power-roofing.jpeg";
 
 const TrustedBySection = () => {
+  const { ref, inView } = useSectionReveal();
   const companies = [
     { name: "40 Dunpar", logo: logo1 },
     { name: "Aria Build", logo: logo2 },
-    { name: "Empresa Fake", logo: logo3 },
+    { name: "Power Roofing", logo: logo3 },
+
   ];
 
   return (
-    <section id="trusted" className="trusted-section">
+    <section
+      ref={ref as React.RefObject<HTMLElement>}
+      id="trusted"
+      className={`trusted-section${inView ? " in-view" : ""}`}
+    >
       {/* Background sutil */}
       <div className="trusted-bg" aria-hidden="true" />
       <div className="trusted-bgOverlay" aria-hidden="true" />
@@ -71,29 +79,40 @@ const TrustedBySection = () => {
             <motion.div
               key={company.name}
               className="trusted-card"
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 36 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.15, duration: 0.5 }}
-              whileHover={{
-                y: -8,
-                transition: { duration: 0.2 }
-              }}
+              transition={{ delay: index * 0.15, duration: 0.5, ease: "easeOut" }}
+              whileHover={{ y: -10, transition: { duration: 0.22 } }}
             >
-              <div className="trusted-logo-wrapper">
-                <div className="trusted-logo">
-                  {company.logo ? (
-                    <img
-                      src={company.logo}
-                      alt={company.name}
-                      className="trusted-logo-img"
-                    />
-                  ) : (
-                    <Building2 size={48} className="trusted-logo-placeholder" />
-                  )}
+              <div className="trusted-card-inner">
+                {/* accent bar */}
+                <div className="trusted-card-accent" aria-hidden="true" />
+
+                {/* imagen a pantalla completa */}
+                <div className="trusted-logo-wrapper">
+                  <div className="trusted-logo">
+                    {company.logo ? (
+                      <img
+                        src={company.logo}
+                        alt={company.name}
+                        className="trusted-logo-img"
+                      />
+                    ) : (
+                      <Building2 size={48} className="trusted-logo-placeholder" />
+                    )}
+                  </div>
+                </div>
+
+                {/* overlay degradado */}
+                <div className="trusted-card-overlay" aria-hidden="true" />
+
+                {/* info flotante */}
+                <div className="trusted-card-body">
+                  <p className="trusted-company-name">{company.name}</p>
+                  <span className="trusted-partner-badge">Trusted Partner</span>
                 </div>
               </div>
-              <p className="trusted-company-name">{company.name}</p>
             </motion.div>
           ))}
         </motion.div>

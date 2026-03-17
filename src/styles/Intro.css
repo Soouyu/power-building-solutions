@@ -1,34 +1,317 @@
 @layer components {
+  /* ==============================
+     INTRO — BASE
+  ============================== */
   .pws-intro {
     position: fixed;
     inset: 0;
     z-index: 9999;
-    background: #f2f2f2;
+    background: #06101e;
     display: grid;
     place-items: center;
     opacity: 1;
-    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    /* Fix para móvil */
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
-    perspective: 1000;
-    -webkit-perspective: 1000;
+    overflow: hidden;
+    transition: opacity 0.85s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.85s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .pws-intro.is-hide {
     opacity: 0;
     pointer-events: none;
+    transform: scale(1.04) translateZ(0);
   }
 
+  /* ── grid background ── */
+  .pws-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(56, 189, 248, .045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(56, 189, 248, .045) 1px, transparent 1px);
+    background-size: 52px 52px;
+    opacity: 0;
+    animation: pws-fadeIn 1.2s ease-out 0.15s forwards;
+    pointer-events: none;
+  }
+
+  /* ── ambient glow ── */
+  .pws-glow {
+    position: absolute;
+    inset: -20%;
+    background: radial-gradient(ellipse 65% 55% at 50% 50%, rgba(14, 165, 233, .12), transparent 72%);
+    pointer-events: none;
+    opacity: 0;
+    animation: pws-fadeIn 2.2s ease-out 0.4s forwards;
+  }
+
+  @keyframes pws-fadeIn {
+    to { opacity: 1; }
+  }
+
+  /* ==============================
+     CORNER BRACKETS (shared)
+  ============================== */
+  .pws-corner {
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    opacity: 0;
+    animation: pws-cornerPop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s forwards;
+  }
+
+  .pws-corner--tl { top: 20px;    left: 20px;    border-top: 2px solid rgba(56,189,248,.5); border-left:  2px solid rgba(56,189,248,.5); }
+  .pws-corner--tr { top: 20px;    right: 20px;   border-top: 2px solid rgba(56,189,248,.5); border-right: 2px solid rgba(56,189,248,.5); }
+  .pws-corner--bl { bottom: 20px; left: 20px;    border-bottom: 2px solid rgba(56,189,248,.5); border-left: 2px solid rgba(56,189,248,.5); }
+  .pws-corner--br { bottom: 20px; right: 20px;   border-bottom: 2px solid rgba(56,189,248,.5); border-right: 2px solid rgba(56,189,248,.5); }
+
+  @keyframes pws-cornerPop {
+    from { opacity: 0; transform: scale(0.4); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+
+  /* ==============================
+     MOBILE LAYOUT
+  ============================== */
+  .pws-mobile {
+    position: relative;
+    z-index: 4;          /* encima del plano (z1), vignette (z2) y scanline (z5 local) */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+  }
+
+  /* ── concentric pulse rings ── */
+  .pws-rings {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+  }
+
+  .pws-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1.5px solid rgba(56, 189, 248, .55);
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+  }
+
+  .pws-ring--1 { width: 130px; height: 130px; animation: pws-ringOut 2.8s cubic-bezier(0.2, 0.8, 0.3, 1) 0.4s infinite; }
+  .pws-ring--2 { width: 185px; height: 185px; animation: pws-ringOut 2.8s cubic-bezier(0.2, 0.8, 0.3, 1) 0.85s infinite; }
+  .pws-ring--3 { width: 240px; height: 240px; animation: pws-ringOut 2.8s cubic-bezier(0.2, 0.8, 0.3, 1) 1.3s infinite; }
+
+  @keyframes pws-ringOut {
+    0%   { transform: translate(-50%, -50%) scale(0.5); opacity: 0.75; }
+    100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
+  }
+
+  /* ── mobile logo ── */
+  .pws-mLogo {
+    position: relative;
+    z-index: 2;
+    width: 180px;
+    height: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(14px) scale(0.88);
+    animation: pws-logoIn 0.75s cubic-bezier(0.34, 1.56, 0.64, 1) 0.35s forwards;
+  }
+
+  @keyframes pws-logoIn {
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .pws-mLogo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    /* convierte el logo negro en blanco sobre fondo oscuro */
+    filter: brightness(0) invert(1);
+  }
+
+  /* ── brand name ── */
+  .pws-mBrand {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(56, 189, 248, .75);
+    margin: 0;
+    opacity: 0;
+    transform: translateY(8px);
+    animation: pws-slideUp 0.55s ease-out 0.9s forwards;
+  }
+
+  /* ── loading bar ── */
+  .pws-mBar {
+    width: 170px;
+    height: 2px;
+    background: rgba(56, 189, 248, .1);
+    border-radius: 999px;
+    overflow: hidden;
+    margin-top: 4px;
+    opacity: 0;
+    animation: pws-slideUp 0.4s ease-out 1.1s forwards;
+  }
+
+  .pws-mBar-fill {
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(90deg, #38bdf8, #818cf8);
+    border-radius: 999px;
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: pws-barFill 2.1s cubic-bezier(0.4, 0, 0.2, 1) 1.25s forwards;
+  }
+
+  @keyframes pws-barFill {
+    0%  { transform: scaleX(0); }
+    75% { transform: scaleX(0.88); }
+    100%{ transform: scaleX(1); }
+  }
+
+  @keyframes pws-slideUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── status dots ── */
+  .pws-mDots {
+    display: flex;
+    gap: 7px;
+    margin-top: 2px;
+    opacity: 0;
+    animation: pws-fadeIn 0.4s ease-out 1.4s forwards;
+  }
+
+  .pws-mDot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(56,189,248,.35);
+    animation: pws-dotPulse 1.2s ease-in-out infinite;
+  }
+
+  .pws-mDot:nth-child(2) { animation-delay: 0.2s; }
+  .pws-mDot:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes pws-dotPulse {
+    0%, 100% { background: rgba(56,189,248,.25); transform: scale(1); }
+    50%       { background: rgba(56,189,248,.8);  transform: scale(1.3); }
+  }
+
+  /* ==============================
+     DESKTOP LAYOUT
+  ============================== */
+
+  /* ── scanline ── */
+  .pws-scan {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(56, 189, 248, .5),
+      rgba(56, 189, 248, .95),
+      rgba(56, 189, 248, .5),
+      transparent
+    );
+    box-shadow:
+      0 0 18px rgba(56, 189, 248, .5),
+      0 0 40px rgba(56, 189, 248, .2);
+    top: 0;
+    z-index: 5;
+    opacity: 0;
+    animation: pws-scanLine 1.6s ease-in-out 0.15s forwards;
+  }
+
+  @keyframes pws-scanLine {
+    0%   { top: 0%;    opacity: 0; }
+    4%   { opacity: 1; }
+    96%  { opacity: 1; }
+    100% { top: 100%;  opacity: 0; }
+  }
+
+  /* ==============================
+     MOBILE — BLUEPRINT DE FONDO
+  ============================== */
+
+  /* contenedor: cubre toda la pantalla, fondo del stack */
+  .pws-mPlan {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0;
+    /* animación simple: una sola transición GPU-safe */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    animation: pws-mPlanIn 1.6s ease-out 0.25s forwards;
+  }
+
+  @keyframes pws-mPlanIn {
+    0%   { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
+  /* SVG escalado para llenar la pantalla portrait */
+  .pws-mPlan svg {
+    /* en portrait el plano es landscape → lo escalamos al ancho del alto */
+    width: auto;
+    height: 100vh;
+    min-width: 160%;
+    display: block;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+
+  /* paths del plano de fondo: azul tenue */
+  .pws-mPlan .pws-bg path {
+    fill: rgba(56, 189, 248, .14);
+  }
+
+  /* logo del plano oculto — solo se muestra el plano de fondo */
+  .pws-mPlan .pws-logo {
+    display: none;
+  }
+
+  /* vignette radial para oscurecer bordes y centrar la atención */
+  .pws-mVignette {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse 70% 65% at 50% 50%,
+      transparent 30%,
+      rgba(6,16,30,.55) 60%,
+      rgba(6,16,30,.88) 100%
+    );
+  }
+
+  /* ── blueprint SVG container (DESKTOP) ── */
   .pws-introPlan {
     width: 100%;
+    position: relative;
+    z-index: 2;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 16px;
-    /* Fix para móvil */
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
   }
@@ -38,216 +321,120 @@
     max-width: min(1200px, 90vw);
     height: auto;
     display: block;
-    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.05));
-    /* Fix para móvil */
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
   }
 
-  /* Versión simplificada para móvil - SIN ANIMACIONES COMPLEJAS */
-  @media (max-width: 768px) {
-    .pws-intro {
-      background: #f2f2f2;
-    }
-
-    .pws-introPlan {
-      padding: 12px;
-    }
-
-    .pws-introPlan svg {
-      max-width: 98vw;
-      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.03));
-    }
-
-    /* SIMPLIFICAMOS: una sola animación para todo el SVG en móvil */
-    .pws-intro.is-playing .pws-introPlan svg {
-      animation: fadeInSimple 2.5s ease-out forwards;
-      opacity: 0;
-    }
-
-    @keyframes fadeInSimple {
-      0% {
-        opacity: 0;
-      }
-      30% {
-        opacity: 0.5;
-      }
-      100% {
-        opacity: 1;
-      }
-    }
-
-    /* Desactivamos todas las animaciones complejas en móvil */
-    .pws-intro.is-playing .pws-bg path,
-    .pws-intro.is-playing .pws-plano path,
-    .pws-intro.is-playing .pws-logo path,
-    .pws-intro.is-playing::before,
-    .pws-intro.is-playing .pws-highlight circle {
-      animation: none !important;
-      opacity: 1 !important;
-      transition: none !important;
-    }
-
-    .pws-intro.is-playing .pws-bg path {
-      stroke: #cbd5e1;
-    }
-
-    .pws-intro.is-playing .pws-plano path:not(.pws-bg path):not(.pws-logo path) {
-      stroke: #64748b;
-    }
-
-    .pws-intro.is-playing .pws-logo path {
-      fill: #0284c7;
-    }
+  /* background blueprint paths — solo dentro de pws-introPlan (desktop) */
+  .pws-intro.is-playing .pws-introPlan .pws-bg path {
+    opacity: 0;
+    fill: rgba(56, 189, 248, .13);
+    animation: pws-bgReveal 1.6s ease-out 0.35s forwards;
   }
 
-  /* Solo para desktop mantenemos las animaciones detalladas */
-  @media (min-width: 769px) {
-    /* Fondo del plano */
-    .pws-intro.is-playing .pws-bg path {
-      animation: fadeInPlano 2s ease-out forwards;
-      opacity: 0;
-      stroke: #cbd5e1;
-    }
-
-    @keyframes fadeInPlano {
-      0% {
-        opacity: 0;
-        stroke: #e2e8f0;
-      }
-      50% {
-        opacity: 0.7;
-        stroke: #94a3b8;
-      }
-      100% {
-        opacity: 1;
-        stroke: #94a3b8;
-      }
-    }
-
-    /* Elementos principales del plano */
-    .pws-intro.is-playing .pws-plano path:not(.pws-bg path):not(.pws-logo path) {
-      animation: revealElements 2.2s ease-out forwards;
-      animation-delay: 0.3s;
-      opacity: 0;
-      stroke: #64748b;
-    }
-
-    @keyframes revealElements {
-      0% {
-        opacity: 0;
-        filter: brightness(0.9);
-      }
-      40% {
-        opacity: 0.9;
-        filter: brightness(1.1);
-      }
-      100% {
-        opacity: 1;
-        filter: brightness(1);
-      }
-    }
-
-    /* Logo */
-    .pws-intro.is-playing .pws-logo path {
-      animation: revealLogo 2s ease-out forwards;
-      animation-delay: 2.2s;
-      opacity: 0;
-      fill: #0284c7;
-    }
-
-    @keyframes revealLogo {
-      0% {
-        opacity: 0;
-        fill: #0369a1;
-      }
-      30% {
-        opacity: 0.8;
-        fill: #0284c7;
-        filter: brightness(1.2);
-      }
-      70% {
-        opacity: 1;
-        fill: #0ea5e9;
-        filter: brightness(1.3);
-      }
-      100% {
-        opacity: 1;
-        fill: #0284c7;
-        filter: brightness(1);
-      }
-    }
-
-    /* Efecto de luz ambiental */
-    .pws-intro.is-playing::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at center, rgba(2, 132, 199, 0.03) 0%, transparent 70%);
-      animation: ambientGlow 3.5s ease-in-out;
-      pointer-events: none;
-      will-change: opacity;
-    }
-
-    @keyframes ambientGlow {
-      0% { opacity: 0; }
-      30% { opacity: 0.2; }
-      60% { opacity: 0.3; }
-      100% { opacity: 0.1; }
-    }
-
-    /* Destellos */
-    .pws-intro.is-playing .pws-highlight circle {
-      animation: highlightPulse 3s ease-in-out;
-    }
-
-    @keyframes highlightPulse {
-      0% {
-        opacity: 0;
-        r: 2;
-        fill: #fbbf24;
-      }
-      40% {
-        opacity: 0.8;
-        r: 4;
-        fill: #f59e0b;
-      }
-      100% {
-        opacity: 0.2;
-        r: 2;
-        fill: #fbbf24;
-      }
-    }
+  @keyframes pws-bgReveal {
+    0%   { opacity: 0;   fill: rgba(56,189,248,.04); }
+    60%  { opacity: 0.9; fill: rgba(56,189,248,.16); }
+    100% { opacity: 1;   fill: rgba(56,189,248,.13); }
   }
 
-  /* Transición final (igual para todos) */
-  .pws-intro.is-hide .pws-introPlan {
-    animation: fadeOutClean 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  /* logo paths — solo dentro de pws-introPlan (desktop) */
+  .pws-intro.is-playing .pws-introPlan .pws-logo path {
+    opacity: 0;
+    fill: #38bdf8;
+    animation: pws-logoGlow 1.1s cubic-bezier(0.34, 1.4, 0.64, 1) 2.3s forwards;
   }
 
-  @keyframes fadeOutClean {
-    0% {
+  @keyframes pws-logoGlow {
+    0%   {
+      opacity: 0;
+      fill: #0ea5e9;
+      filter: drop-shadow(0 0 24px rgba(56,189,248,.9));
+      transform: scale(0.94);
+    }
+    45%  {
       opacity: 1;
-      transform: scale(1);
-      filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.05));
-    }
-    50% {
-      opacity: 0.7;
-      filter: blur(1px) drop-shadow(0 4px 6px rgba(0, 0, 0, 0.02));
-      transform: scale(1.05);
+      fill: #38bdf8;
+      filter: drop-shadow(0 0 32px rgba(56,189,248,.65));
     }
     100% {
-      opacity: 0;
-      transform: scale(1.1);
-      filter: blur(4px) drop-shadow(0 4px 6px rgba(0, 0, 0, 0));
+      opacity: 1;
+      fill: #93c5fd;
+      filter: drop-shadow(0 0 10px rgba(56,189,248,.3));
+      transform: scale(1);
     }
   }
 
-  /* Prevenimos parpadeos */
+  /* ── HUD bottom label ── */
+  .pws-hud {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 4;
+    opacity: 0;
+    animation: pws-fadeIn 0.6s ease-out 1.6s forwards;
+    white-space: nowrap;
+  }
+
+  .pws-hud-text {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    color: rgba(56, 189, 248, .6);
+    text-transform: uppercase;
+  }
+
+  .pws-hud-dot {
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: rgba(56, 189, 248, .45);
+  }
+
+  /* ── desktop progress bar ── */
+  .pws-dBar {
+    position: absolute;
+    bottom: 52px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 240px;
+    height: 1.5px;
+    background: rgba(56,189,248,.1);
+    border-radius: 999px;
+    overflow: hidden;
+    z-index: 4;
+    opacity: 0;
+    animation: pws-fadeIn 0.4s ease-out 0.5s forwards;
+  }
+
+  .pws-dBar-fill {
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(90deg, #38bdf8, #818cf8);
+    border-radius: 999px;
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: pws-dBarFill 4s cubic-bezier(0.4, 0, 0.2, 1) 0.6s forwards;
+  }
+
+  @keyframes pws-dBarFill {
+    0%  { transform: scaleX(0); }
+    80% { transform: scaleX(0.9); }
+    100%{ transform: scaleX(1); }
+  }
+
+  /* ==============================
+     REDUCED MOTION
+  ============================== */
   @media (prefers-reduced-motion: reduce) {
-    .pws-intro.is-playing * {
+    .pws-intro * {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;

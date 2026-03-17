@@ -1,44 +1,38 @@
-
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
-import AboutSection from "@/components/AboutSection";
-import ServicesSection from "@/components/ServicesSection";
-import WhyChooseUs from "@/components/WhyChooseUs";
-import ProjectsSection from "@/components/ProjectsSection";
-import QuoteSection from "@/components/QuoteSection";
-import Footer from "@/components/Footer";
 import IntroAnimation from "@/components/IntroAnimation";
-import TrustedBy from "@/components/TrustedBy";
 
 import AOS from "aos";
 import "aos/dist/aos.css";
+
+// Secciones below-fold: cargadas en chunks paralelos independientes
+const AboutSection    = lazy(() => import("@/components/AboutSection"));
+const ServicesSection = lazy(() => import("@/components/ServicesSection"));
+const TrustedBy       = lazy(() => import("@/components/TrustedBy"));
+const QuoteSection    = lazy(() => import("@/components/QuoteSection"));
+const Footer          = lazy(() => import("@/components/Footer"));
 
 const Index = () => {
   const [showIntro, setShowIntro] = useState(true);
 
   useEffect(() => {
-    // ⛔ mientras esté el intro, no inicializamos AOS
     if (showIntro) return;
 
-    // ✅ AOS cuando ya se quitó el intro
     AOS.init({
       once: true,
-      duration: 900,
+      duration: 750,          // reducido de 900 → animaciones más ágiles
       easing: "ease-out-cubic",
-      offset: 140,
+      offset: 100,
     });
 
-    // ✅ refrescos (evita glitches)
-    const t1 = window.setTimeout(() => AOS.refreshHard(), 120);
-    const t2 = window.setTimeout(() => AOS.refreshHard(), 800);
-
+    // Un solo refresh diferido es suficiente
+    const t = window.setTimeout(() => AOS.refreshHard(), 200);
     const onResize = () => AOS.refresh();
-    window.addEventListener("resize", onResize);
+    window.addEventListener("resize", onResize, { passive: true });
 
     return () => {
-      window.clearTimeout(t1);
-      window.clearTimeout(t2);
+      window.clearTimeout(t);
       window.removeEventListener("resize", onResize);
     };
   }, [showIntro]);
@@ -50,14 +44,21 @@ const Index = () => {
       <Header />
 
       <main>
-        <HeroSection />
-        <AboutSection />
-        <ServicesSection />
-        <TrustedBy />
-        <QuoteSection />
+        {/* HeroSection es above-fold → eager; ready dispara el fondo al terminar intro */}
+        <HeroSection ready={!showIntro} />
+
+        {/* Below-fold → lazy chunks, fallback null para evitar layout shift */}
+        <Suspense fallback={null}>
+          <AboutSection />
+          <ServicesSection />
+          <TrustedBy />
+          <QuoteSection />
+        </Suspense>
       </main>
 
-      <Footer />
+      <Suspense fallback={null}>
+        <Footer />
+      </Suspense>
     </div>
   );
 };

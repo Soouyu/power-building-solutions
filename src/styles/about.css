@@ -1,7 +1,37 @@
 @layer components {
   /* ====== SECTION ====== */
   .aboutx {
-    @apply relative overflow-hidden bg-[#060a12] py-[clamp(80px,7vw,120px)];
+    @apply relative overflow-hidden py-[clamp(80px,7vw,120px)];
+    background: linear-gradient(160deg, #eef6ff 0%, #ddeeff 45%, #f0f7ff 100%);
+    content-visibility: auto;
+    contain-intrinsic-size: 0 900px;
+  }
+
+  /* ── Entrance animations ── */
+  .aboutx-left {
+    opacity: 0;
+    transform: translateX(-44px);
+    transition: opacity 0.8s ease 0.15s, transform 0.8s cubic-bezier(.2,.8,.2,1) 0.15s;
+  }
+
+  .aboutx-right {
+    opacity: 0;
+    transform: translateX(44px);
+    transition: opacity 0.8s ease 0.3s, transform 0.8s cubic-bezier(.2,.8,.2,1) 0.3s;
+  }
+
+  .aboutx.in-view .aboutx-left,
+  .aboutx.in-view .aboutx-right {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .aboutx-left, .aboutx-right {
+      transition: none;
+      opacity: 1;
+      transform: none;
+    }
   }
 
   .aboutx-bg {
@@ -9,9 +39,9 @@
     background-image: var(--aboutx-bg);
     background-size: cover;
     background-position: center;
-    opacity: 0.46;
+    opacity: 0.06;
     transform: scale(1.08);
-    filter: saturate(1.05) contrast(1.03);
+    filter: saturate(0.6) contrast(1.0);
     z-index: 0;
     will-change: transform;
   }
@@ -19,8 +49,8 @@
   .aboutx-scrim {
     @apply absolute inset-0;
     background:
-      radial-gradient(900px 520px at 22% 28%, rgba(6,10,18,0.02), rgba(6,10,18,0.45)),
-      linear-gradient(180deg, rgba(6,10,18,0.15), rgba(6,10,18,0.55));
+      radial-gradient(900px 520px at 22% 28%, rgba(219,234,254,0.55), rgba(224,242,254,0.25)),
+      linear-gradient(180deg, rgba(240,249,255,0.3), rgba(219,234,254,0.4));
     z-index: 1;
   }
 
@@ -71,14 +101,14 @@
 
   .aboutx-iconRing--outer {
     inset: 0;
-    border: 2px dashed rgba(56, 189, 248, .22);
+    border: 2px dashed rgba(56, 189, 248, .45);
   }
 
   .aboutx-iconRing--inner {
     inset: 18px;
     border: 2px solid transparent;
-    border-top-color: rgba(56, 189, 248, .75);
-    border-bottom-color: rgba(56, 189, 248, .3);
+    border-top-color: rgba(14, 116, 186, .75);
+    border-bottom-color: rgba(56, 189, 248, .4);
   }
 
   .aboutx-iconCenter {
@@ -86,32 +116,32 @@
     z-index: 2;
     width: 68px;
     height: 68px;
-    background: rgba(255, 255, 255, .06);
+    background: rgba(255, 255, 255, 0.85);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #7dd3fc;
+    color: #0284c7;
     box-shadow:
-      0 4px 20px rgba(56, 189, 248, .2),
-      0 0 0 1px rgba(56, 189, 248, .1);
+      0 4px 20px rgba(56, 189, 248, .3),
+      0 0 0 1px rgba(56, 189, 248, .2);
     backdrop-filter: blur(6px);
   }
 
   /* ====== LEFT CONTENT ====== */
   .aboutx-kicker {
-    @apply mb-3 inline-flex items-center gap-2 rounded-full border border-sky-300/30
-      bg-sky-400/10 px-3 py-2 text-[12px] font-black tracking-[0.12em] text-white;
-    opacity: 0.85;
+    @apply mb-3 inline-flex items-center gap-2 rounded-full border border-sky-400/40
+      bg-sky-50 px-3 py-2 text-[12px] font-black tracking-[0.12em] text-sky-700;
+    opacity: 0.95;
   }
 
   .aboutx-title {
-    @apply mb-3 font-black leading-[1.08] tracking-[-0.02em] text-white/95;
+    @apply mb-3 font-black leading-[1.08] tracking-[-0.02em] text-slate-800;
     font-size: clamp(34px, 4.2vw, 58px);
   }
 
   .aboutx-sub {
-    @apply max-w-[68ch] text-white/80;
+    @apply max-w-[68ch] text-slate-600;
     font-size: clamp(16px, 1.15vw, 18.5px);
     line-height: 1.95;
   }
@@ -119,39 +149,39 @@
   .aboutx-pills { @apply mt-5 flex flex-wrap gap-2; }
 
   .aboutx-pill {
-    @apply inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-2
-      text-[12.5px] font-extrabold text-white/80 shadow-[0_10px_30px_rgba(0,0,0,0.25)];
+    @apply inline-flex items-center rounded-full border border-sky-200 bg-white px-3 py-2
+      text-[12.5px] font-extrabold text-sky-700 shadow-[0_4px_14px_rgba(56,189,248,0.12)];
     backdrop-filter: blur(10px);
   }
 
   .aboutx-bullets { @apply mt-6 grid gap-3; }
 
   .aboutx-bullet {
-    @apply grid grid-cols-[42px_1fr] gap-3 rounded-2xl border border-white/10 bg-[#0a0e16]/60 p-3
-      shadow-[0_18px_45px_rgba(0,0,0,0.32)];
+    @apply grid grid-cols-[42px_1fr] gap-3 rounded-2xl border border-sky-100 bg-white/80 p-3
+      shadow-[0_6px_20px_rgba(56,189,248,0.10)];
     backdrop-filter: blur(10px);
   }
 
   .aboutx-ico {
-    @apply grid h-[42px] w-[42px] place-items-center rounded-2xl border border-sky-300/20 bg-sky-400/10;
+    @apply grid h-[42px] w-[42px] place-items-center rounded-2xl border border-sky-200 bg-sky-50;
   }
 
-  .aboutx-ico svg { @apply h-[18px] w-[18px] text-white/90; }
+  .aboutx-ico svg { @apply h-[18px] w-[18px] text-sky-600; }
 
-  .aboutx-btitle { @apply mb-1 text-[14.5px] font-black text-white/90; }
-  .aboutx-bdesc { @apply text-[13.8px] leading-[1.7] text-white/75; }
+  .aboutx-btitle { @apply mb-1 text-[14.5px] font-black text-slate-800; }
+  .aboutx-bdesc { @apply text-[13.8px] leading-[1.7] text-slate-500; }
 
   .aboutx-actions { @apply mt-6 flex flex-wrap gap-3; }
 
   .aboutx-cta {
-    @apply inline-flex h-12 items-center justify-center rounded-xl px-5 text-[13px] font-black text-[#070b12]
+    @apply inline-flex h-12 items-center justify-center rounded-xl px-5 text-[13px] font-black text-white
       transition hover:-translate-y-[1px];
-    background: linear-gradient(135deg, #38bdf8, #4f92ff);
-    box-shadow: 0 18px 40px rgba(56, 189, 248, 0.18);
+    background: linear-gradient(135deg, #0ea5e9, #2563eb);
+    box-shadow: 0 18px 40px rgba(14, 165, 233, 0.28);
   }
 
   .aboutx-cta.ghost {
-    @apply border border-sky-200/20 bg-[#0a0e16]/55 text-white/90 shadow-none;
+    @apply border border-sky-300 bg-white text-sky-700 shadow-none;
     backdrop-filter: blur(10px);
   }
 
@@ -159,49 +189,49 @@
   .aboutx-right { @apply relative min-w-0; } /* min-w-0 evita cortes en grids */
 
   .aboutx-card {
-    @apply overflow-hidden rounded-3xl border border-white/10 bg-[#0a0e16]/60
-      shadow-[0_30px_80px_rgba(0,0,0,0.35)];
+    @apply overflow-hidden rounded-3xl border border-sky-100 bg-white/90
+      shadow-[0_20px_60px_rgba(56,189,248,0.14)];
     backdrop-filter: blur(12px);
   }
 
-  .aboutx-cardHead { @apply border-b border-white/10 p-6; }
+  .aboutx-cardHead { @apply border-b border-sky-100 p-6; }
 
   .aboutx-cardTitle {
-    @apply flex items-center gap-2 text-[17px] font-black text-white/95;
+    @apply flex items-center gap-2 text-[17px] font-black text-slate-800;
   }
 
-  .aboutx-cardTitle svg { @apply h-[16px] w-[16px] text-sky-300; }
+  .aboutx-cardTitle svg { @apply h-[16px] w-[16px] text-sky-500; }
 
-  .aboutx-cardSub { @apply mt-2 text-[15px] text-white/80; }
+  .aboutx-cardSub { @apply mt-2 text-[15px] text-slate-500; }
 
   .aboutx-proofGrid { @apply grid grid-cols-3 gap-3 p-6; }
 
-  .aboutx-proofItem { @apply rounded-xl border border-white/10 bg-white/5 p-3 text-center; }
+  .aboutx-proofItem { @apply rounded-xl border border-sky-100 bg-sky-50 p-3 text-center; }
 
-  .aboutx-proofNum { @apply text-[28px] font-black text-sky-300; }
-  .aboutx-proofLbl { @apply text-[13.5px] font-semibold text-white/80; }
+  .aboutx-proofNum { @apply text-[28px] font-black text-sky-600; }
+  .aboutx-proofLbl { @apply text-[13.5px] font-semibold text-slate-600; }
 
-  .aboutx-note { @apply px-6 pb-6 text-[15px] leading-relaxed text-white/85; }
+  .aboutx-note { @apply px-6 pb-6 text-[15px] leading-relaxed text-slate-600; }
 
   /* ====== PROCESS ====== */
   .aboutx-process {
-    @apply mt-6 w-full overflow-hidden rounded-3xl border border-white/10 bg-white/[0.06] p-6
-      shadow-[0_22px_60px_rgba(0,0,0,0.35)];
+    @apply mt-6 w-full overflow-hidden rounded-3xl border border-sky-100 bg-white/90 p-6
+      shadow-[0_14px_40px_rgba(56,189,248,0.12)];
     backdrop-filter: blur(12px);
   }
 
   .aboutx-processHead { @apply mb-5; }
 
   .aboutx-processKicker {
-    @apply inline-flex items-center rounded-full border border-sky-200/25
-      bg-sky-400/10 px-3 py-2 text-[11px] font-black tracking-[0.14em]
-      text-white/85;
+    @apply inline-flex items-center rounded-full border border-sky-300/50
+      bg-sky-50 px-3 py-2 text-[11px] font-black tracking-[0.14em]
+      text-sky-700;
   }
 
-  .aboutx-processTitle { @apply mt-3 text-[18px] font-black text-white/95; }
+  .aboutx-processTitle { @apply mt-3 text-[18px] font-black text-slate-800; }
 
   .aboutx-processSub {
-    @apply mt-2 text-[17px] leading-[1.75] text-white/75;
+    @apply mt-2 text-[17px] leading-[1.75] text-slate-500;
     max-width: 68ch;
   }
 
@@ -215,34 +245,35 @@
   .aboutx-stepTop { @apply relative mb-3 flex items-center; }
 
   .aboutx-stepDot {
-    @apply relative grid h-10 w-10 place-items-center rounded-xl border border-sky-300/30 bg-sky-400/15;
+    @apply relative grid h-10 w-10 place-items-center rounded-xl border border-sky-300 bg-sky-50;
     box-shadow:
-      0 0 0 6px rgba(56,189,248,0.06),
-      0 12px 28px rgba(56,189,248,0.18);
+      0 0 0 6px rgba(56,189,248,0.08),
+      0 8px 20px rgba(56,189,248,0.18);
   }
 
   .aboutx-stepDot span {
     @apply text-[15px] font-black tracking-[0.05em];
-    color: rgba(125, 211, 252, 0.95);
-    text-shadow: 0 0 14px rgba(56,189,248,0.55);
+    color: #0284c7;
+    text-shadow: none;
   }
 
   .aboutx-stepCard {
-    @apply w-full min-w-0 rounded-2xl border border-white/10 bg-[#0a0e16]/65 p-4 backdrop-blur-md;
-    transition: transform .2s ease, border-color .2s ease;
+    @apply w-full min-w-0 rounded-2xl border border-sky-100 bg-white/85 p-4 backdrop-blur-md;
+    transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
   }
 
   .aboutx-stepCard:hover {
     transform: translateY(-3px);
-    border-color: rgba(56,189,248,.25);
+    border-color: rgba(56,189,248,.4);
+    box-shadow: 0 8px 24px rgba(56,189,248,0.15);
   }
 
   .aboutx-stepTitle {
-    @apply text-[16px] font-black leading-[1.25] tracking-[-0.01em] text-white/95;
+    @apply text-[16px] font-black leading-[1.25] tracking-[-0.01em] text-slate-800;
   }
 
   .aboutx-stepDesc {
-    @apply mt-2 text-[14px] leading-[1.75] text-white/80;
+    @apply mt-2 text-[14px] leading-[1.75] text-slate-500;
   }
 
   /* Tablet: 2 columnas */

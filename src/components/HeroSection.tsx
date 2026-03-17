@@ -6,40 +6,31 @@ import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/hero-construction.jpg";
 import heroVideo from "@/assets/hero-fonder.mp4";
 
-const IMAGE_HOLD_MS = 2500; // 2.5s de imagen antes de reproducir video
+// El video arranca X ms después de que la imagen es visible
+const IMAGE_HOLD_MS = 5500;
 
-const HeroSection = () => {
+interface HeroProps { ready?: boolean }
+
+const HeroSection = ({ ready = false }: HeroProps): JSX.Element => {
 	const videoRef = useRef<HTMLVideoElement | null>(null);
 	const [showVideo, setShowVideo] = useState(false);
 
+	// Solo arranca el ciclo cuando el intro haya terminado
 	useEffect(() => {
-		let timer: number | undefined;
+		if (!ready) return;
 
-		const startCycle = () => {
-			// 1) mostrar imagen
-			setShowVideo(false);
+		const timer = window.setTimeout(() => {
+			setShowVideo(true);
+			const v = videoRef.current;
+			if (v) {
+				v.currentTime = 0;
+				const p = v.play();
+				if (p) p.catch(() => {});
+			}
+		}, IMAGE_HOLD_MS);
 
-			// 2) esperar y arrancar video
-			timer = window.setTimeout(() => {
-				setShowVideo(true);
-
-				// arrancar video
-				const v = videoRef.current;
-				if (v) {
-					v.currentTime = 0;
-					const p = v.play();
-					// en algunos navegadores puede fallar si no está muted, pero lo tenemos muted
-					if (p) p.catch(() => { });
-				}
-			}, IMAGE_HOLD_MS);
-		};
-
-		startCycle();
-
-		return () => {
-			if (timer) window.clearTimeout(timer);
-		};
-	}, []);
+		return () => window.clearTimeout(timer);
+	}, [ready]);
 
 	const handleEnded = () => {
 		setShowVideo(false);
@@ -49,36 +40,32 @@ const HeroSection = () => {
 			if (v) {
 				v.currentTime = 0;
 				const p = v.play();
-				if (p) p.catch(() => { });
+				if (p) p.catch(() => {});
 			}
 		}, IMAGE_HOLD_MS);
 	};
 
 	return (
-		<section className="pws-hero">
+		<section className={`pws-hero${ready ? " is-ready" : ""}`}>
+
 			{/* BACKGROUND STACK */}
 			<div className="pws-heroBg">
-				{/* Imagen (base/final) */}
 				<img
 					src={heroImage}
 					alt="Professional construction site"
-					className={`pws-heroMedia ${showVideo ? "is-hidden" : "is-visible"}`}
+					className={`pws-heroMedia ${ready && !showVideo ? "is-visible" : "is-hidden"}`}
 					loading="eager"
 					decoding="async"
 				/>
-
-				{/* Video */}
 				<video
 					ref={videoRef}
 					className={`pws-heroMedia ${showVideo ? "is-visible" : "is-hidden"}`}
 					src={heroVideo}
 					muted
 					playsInline
-					preload="metadata"
+					preload="none"
 					onEnded={handleEnded}
 				/>
-
-				{/* Overlay */}
 				<div className="pws-heroOverlay" />
 			</div>
 
@@ -107,14 +94,10 @@ const HeroSection = () => {
 				</div>
 
 				<div className="pws-max">
-
-
 					<h1 className="pws-in heading-display text-card mb-6 pws-heroTitle">
 						Driven by Power<br />
 						<span className="pws-heroAccent">Defined By Quality</span>
 					</h1>
-
-
 
 					<p className="pws-in text-lg md:text-xl text-card/90 mb-8 max-w-2xl leading-relaxed">
 						Power Building Solutions delivers exceptional construction services
@@ -134,7 +117,6 @@ const HeroSection = () => {
 					<div className="pws-in grid grid-cols-3 gap-8 mt-16 pt-8 border-t border-card/20">
 						<div>
 							<div className="text-3xl md:text-4xl font-bold text-card">8+</div>
-
 							<div className="text-card/70 text-sm md:text-base">Years Experience</div>
 						</div>
 						<div>
@@ -148,8 +130,6 @@ const HeroSection = () => {
 					</div>
 				</div>
 			</div>
-
-
 		</section>
 	);
 };
