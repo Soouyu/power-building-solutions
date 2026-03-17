@@ -51,8 +51,8 @@ export default function IntroAnimation({ onFinish }: Props) {
   return (
     <div ref={rootRef} className={`pws-intro ${hide ? "is-hide" : ""}`}>
       {/* Fondos compartidos */}
-      <div className="pws-grid"  aria-hidden="true" />
-      <div className="pws-glow"  aria-hidden="true" />
+      <div className="pws-grid" aria-hidden="true" />
+      <div className="pws-glow" aria-hidden="true" />
 
       {/* Brackets esquina (compartidos) */}
       <div className="pws-corner pws-corner--tl" aria-hidden="true" />
@@ -91,7 +91,7 @@ export default function IntroAnimation({ onFinish }: Props) {
             </div>
 
             {/* nombre */}
-            <p className="pws-mBrand">Power Building Solutions</p>
+            <p className="pws-mBrand">POWER CONSTRUCTION GC INC.</p>
 
             {/* barra de carga */}
             <div className="pws-mBar" aria-hidden="true">
@@ -126,7 +126,7 @@ export default function IntroAnimation({ onFinish }: Props) {
           {/* label HUD */}
           <div className="pws-hud" aria-hidden="true">
             <span className="pws-hud-dot" />
-            <span className="pws-hud-text">Power Building Solutions</span>
+            <span className="pws-hud-text">POWER CONSTRUCTION GC INC.</span>
             <span className="pws-hud-dot" />
           </div>
         </>

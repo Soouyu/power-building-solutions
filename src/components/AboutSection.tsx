@@ -205,10 +205,10 @@ const AboutSection = () => {
             <div className="aboutx-processHead">
               <span className="aboutx-processKicker">OUR PROCESS</span>
               <h3 className="aboutx-processTitle">
-                Simple, Transparent, and on Schedule.
+                Simple, Transparent and on Schedule.
               </h3>
               <p className="aboutx-processSub">
-                From the first call to final handoff, we keep it clear,
+                From the first call to final handoff. We keep it clear,
                 predictable, and documented—no surprises.
               </p>
             </div>
