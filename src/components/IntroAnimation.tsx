@@ -91,7 +91,7 @@ export default function IntroAnimation({ onFinish }: Props) {
             </div>
 
             {/* nombre */}
-            <p className="pws-mBrand">POWER CONSTRUCTION GC INC.</p>
+            <p className="pws-mBrand">GENERAL CONTRACTING SERVICES</p>
 
             {/* barra de carga */}
             <div className="pws-mBar" aria-hidden="true">
@@ -126,7 +126,7 @@ export default function IntroAnimation({ onFinish }: Props) {
           {/* label HUD */}
           <div className="pws-hud" aria-hidden="true">
             <span className="pws-hud-dot" />
-            <span className="pws-hud-text">POWER CONSTRUCTION GC INC.</span>
+            <span className="pws-hud-text">GENERAL CONTRACTING SERVICES</span>
             <span className="pws-hud-dot" />
           </div>
         </>
