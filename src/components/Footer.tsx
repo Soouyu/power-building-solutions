@@ -1,6 +1,14 @@
 import React from "react";
-import { Building2, Phone, Mail, MapPin, Clock, ArrowUp, Globe, Share2, Users } from "lucide-react";
+import { Building2, Phone, Mail, MapPin, Clock, ArrowUp } from "lucide-react";
 import { useSectionReveal } from "@/hooks/useSectionReveal";
+
+const InstagramIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width="15" height="15" aria-hidden="true">
+    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+    <circle cx="12" cy="12" r="4" />
+    <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none" />
+  </svg>
+);
 
 const QUICK_LINKS = [
   { label: "About Us", href: "#about" },
@@ -25,9 +33,7 @@ const CONTACT = [
 ];
 
 const SOCIALS = [
-  { Icon: Globe, href: "#", label: "Website" },
-  { Icon: Share2, href: "#", label: "Social" },
-  { Icon: Users, href: "#", label: "Community" },
+  { href: "https://www.instagram.com/power.build.solutions?igsh=NHl1NXhueTN1aDN3", label: "Instagram" },
 ];
 
 const Footer = () => {
@@ -59,9 +65,9 @@ const Footer = () => {
           </p>
 
           <div className="ft-socials">
-            {SOCIALS.map(({ Icon, href, label }) => (
-              <a key={label} href={href} className="ft-social" aria-label={label}>
-                <Icon size={15} strokeWidth={1.8} />
+            {SOCIALS.map(({ href, label }) => (
+              <a key={label} href={href} className="ft-social" aria-label={label} target="_blank" rel="noopener noreferrer">
+                <InstagramIcon />
               </a>
             ))}
           </div>
