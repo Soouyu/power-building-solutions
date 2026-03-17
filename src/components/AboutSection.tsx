@@ -42,27 +42,25 @@ const AboutSection = () => {
   const steps = [
     {
       n: "1",
-      t: "Quick cagll",
+      t: "Quick Call",
       d: "You tell us what you need, location, timeline, and budget range.",
     },
     {
       n: "2",
-      t: "Site visit",
+      t: "Site Visit",
       d: "We assess measurements, constraints, access, and safety requirements.",
     },
     {
       n: "3",
-      t: "Clear proposal",
+      t: "Clear Proposal",
       d: "You receive scope, materials, schedule, and pricing—line by line.",
     },
     {
       n: "4",
-      t: "Build + handoff",
+      t: "Build + Handoff",
       d: "We execute safely, send updates, and deliver a clean final walkthrough.",
     },
   ];
-
-  // ✅ Parallax/zoom MUY suave para el fondo (no rompe, respeta reduced motion)
   useEffect(() => {
     const bg = document.querySelector(".aboutx-bg") as HTMLElement | null;
     if (!bg) return;
@@ -72,7 +70,7 @@ const AboutSection = () => {
 
     const onScroll = () => {
       const y = window.scrollY;
-      // poquito movimiento, para que se sienta "vivo" sin marear
+
       bg.style.transform = `scale(1.08) translateY(${y * 0.02}px)`;
     };
 
@@ -207,7 +205,7 @@ const AboutSection = () => {
             <div className="aboutx-processHead">
               <span className="aboutx-processKicker">OUR PROCESS</span>
               <h3 className="aboutx-processTitle">
-                Simple, transparent, and on schedule.
+                Simple, Transparent, and on Schedule.
               </h3>
               <p className="aboutx-processSub">
                 From the first call to final handoff, we keep it clear,

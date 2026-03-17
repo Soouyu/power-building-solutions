@@ -9,7 +9,7 @@ import heroVideo from "@/assets/hero-fonder.mp4";
 const IMAGE_HOLD_MS = 5500;
 
 const STATS = [
-  { end: 8,   suffix: "+", label: "Years Experience" },
+  { end: 8, suffix: "+", label: "Years Experience" },
   { end: 300, suffix: "+", label: "Projects Completed" },
   { end: 100, suffix: "%", label: "Client Satisfaction" },
 ];
@@ -21,9 +21,9 @@ interface HeroProps { ready?: boolean }
 
 const HeroSection = ({ ready = false }: HeroProps): JSX.Element => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [showVideo, setShowVideo]   = useState(false);
-  const [counts, setCounts]         = useState([0, 0, 0]);
-  const [doneMask, setDoneMask]     = useState([false, false, false]);
+  const [showVideo, setShowVideo] = useState(false);
+  const [counts, setCounts] = useState([0, 0, 0]);
+  const [doneMask, setDoneMask] = useState([false, false, false]);
 
   /* ── video cycle ─────────────────────────────────────── */
   useEffect(() => {
@@ -31,7 +31,7 @@ const HeroSection = ({ ready = false }: HeroProps): JSX.Element => {
     const timer = window.setTimeout(() => {
       setShowVideo(true);
       const v = videoRef.current;
-      if (v) { v.currentTime = 0; v.play()?.catch(() => {}); }
+      if (v) { v.currentTime = 0; v.play()?.catch(() => { }); }
     }, IMAGE_HOLD_MS);
     return () => window.clearTimeout(timer);
   }, [ready]);
@@ -41,7 +41,7 @@ const HeroSection = ({ ready = false }: HeroProps): JSX.Element => {
     window.setTimeout(() => {
       setShowVideo(true);
       const v = videoRef.current;
-      if (v) { v.currentTime = 0; v.play()?.catch(() => {}); }
+      if (v) { v.currentTime = 0; v.play()?.catch(() => { }); }
     }, IMAGE_HOLD_MS);
   };
 
@@ -49,7 +49,7 @@ const HeroSection = ({ ready = false }: HeroProps): JSX.Element => {
   useEffect(() => {
     if (!ready) return;
 
-    const DELAY    = 1000;   // ms tras 'ready' para iniciar
+    const DELAY = 1000;   // ms tras 'ready' para iniciar
     const DURATION = 2200;   // ms que tarda el conteo completo
 
     const start = window.setTimeout(() => {
@@ -57,7 +57,7 @@ const HeroSection = ({ ready = false }: HeroProps): JSX.Element => {
 
       const tick = (now: number) => {
         const progress = Math.min((now - t0) / DURATION, 1);
-        const eased    = easeOut(progress);
+        const eased = easeOut(progress);
 
         setCounts(STATS.map(s => Math.round(eased * s.end)));
 
@@ -138,7 +138,7 @@ const HeroSection = ({ ready = false }: HeroProps): JSX.Element => {
           </h1>
 
           <p className="pws-in text-lg md:text-xl text-card/90 mb-8 max-w-2xl leading-relaxed">
-            Power Building Solutions delivers exceptional construction services
+            Power Build Solutions delivers exceptional construction services
             with unwavering commitment to quality, safety, and professional excellence.
             Every project, built to last.
           </p>

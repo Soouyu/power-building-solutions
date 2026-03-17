@@ -63,7 +63,7 @@ const TrustedBySection = () => {
             Canadian companies <span>that trust us</span>
           </h2>
           <p className="trusted-subtitle">
-            Building relationships across Toronto and the GTA since 2004
+            Building relationships across Toronto and the GTA since 2018
           </p>
         </motion.div>
 
