@@ -20,8 +20,8 @@ const WhatsAppButton = ({ ready = false }: Props) => {
 
     // Contador del hero termina ~3200ms después del intro.
     // Burbuja: 4 s después de que termina el contador → 7200ms total, dura 4 s
-    const show = window.setTimeout(() => setShowBubble(true),   7200);
-    const hide = window.setTimeout(() => setShowBubble(false), 11200); // 7200 + 4000
+    const show = window.setTimeout(() => setShowBubble(true), 7200);
+    const hide = window.setTimeout(() => setShowBubble(false), 12200); // 7200 + 4000
 
     return () => { window.clearTimeout(show); window.clearTimeout(hide); };
   }, [ready]);
