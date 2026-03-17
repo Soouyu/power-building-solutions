@@ -1,89 +1,139 @@
-import { Phone, Mail, MapPin, Clock } from "lucide-react";
+import { Building2, Phone, Mail, MapPin, Clock, ArrowUp, Globe, Share2, Users } from "lucide-react";
 
-const Footer = () => {
-  return (
-    <footer className="bg-primary text-primary-foreground">
-      <div className="container-max section-padding">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
-          {/* Company Info */}
-          <div className="space-y-4">
-            <h3 className="text-2xl font-bold text-primary-foreground">
-              Power Build Solutions
-            </h3>
-            <p className="text-primary-foreground/80 leading-relaxed">
-              Building excellence since 2005. Your trusted partner for commercial and residential construction projects.
-            </p>
-          </div>
+const QUICK_LINKS = [
+  { label: "About Us",       href: "#about"    },
+  { label: "Our Services",   href: "#services" },
+  { label: "Our Projects",   href: "#projects" },
+  { label: "Request Quote",  href: "#quote"    },
+];
 
-          {/* Quick Links */}
-          <div className="space-y-4">
-            <h4 className="text-lg font-semibold text-primary-foreground">Quick Links</h4>
-            <nav className="flex flex-col space-y-2">
-              <a href="#about" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors">
-                About Us
-              </a>
-              <a href="#services" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors">
-                Our Services
-              </a>
-              <a href="#quote" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors">
-                Request Quote
-              </a>
-            </nav>
-          </div>
+const SERVICES = [
+  "Flat Roofing",
+  "Construction Cleaning",
+  "Demolition & Hand Excavation",
+  "Renovations",
+  "General Contracting",
+];
 
-          {/* Services */}
-          <div className="space-y-4">
-            <h4 className="text-lg font-semibold text-primary-foreground">Services</h4>
-            <nav className="flex flex-col space-y-2">
-              <span className="text-primary-foreground/80">Flat Roofing</span>
-              <span className="text-primary-foreground/80">Construction Cleaning</span>
-              <span className="text-primary-foreground/80">Demolition & Hand Excavation</span>
-              <span className="text-primary-foreground/80">Renovations</span>
-            </nav>
-          </div>
+const CONTACT = [
+  { Icon: Phone,  label: "Phone",    value: "+1 (647) 917-9646",                 href: "tel:+16479179646"                      },
+  { Icon: Mail,   label: "Email",    value: "powerconstructiongc@gmail.com",     href: "mailto:powerconstructiongc@gmail.com"  },
+  { Icon: MapPin, label: "Address",  value: "61 Jessie St, Brampton, Canada",    href: null                                    },
+  { Icon: Clock,  label: "Hours",    value: "Mon – Sun: 7 AM – 6 PM",           href: null                                    },
+];
 
-          {/* Contact Info */}
-          <div className="space-y-4">
-            <h4 className="text-lg font-semibold text-primary-foreground">Contact Us</h4>
-            <div className="space-y-3">
-              <div className="flex items-center gap-3 text-primary-foreground/80">
-                <Phone className="w-5 h-5 flex-shrink-0" />
-                <span>+1 (647) 917-9646</span>
-              </div>
-              <div className="flex items-center gap-3 text-primary-foreground/80">
-                <Mail className="w-5 h-5 flex-shrink-0" />
-                <span>powerconstructiongc@gmail.com</span>
-              </div>
-              <div className="flex items-start gap-3 text-primary-foreground/80">
-                <MapPin className="w-5 h-5 flex-shrink-0 mt-0.5" />
-                <span>61 Jessie Street.<br />Canada Brampton</span>
-              </div>
-              <div className="flex items-center gap-3 text-primary-foreground/80">
-                <Clock className="w-5 h-5 flex-shrink-0" />
-                <span>Mon-Sun: 7AM - 6PM</span>
-              </div>
-            </div>
-          </div>
-        </div>
+const SOCIALS = [
+  { Icon: Globe,   href: "#", label: "Website"   },
+  { Icon: Share2,  href: "#", label: "Social"    },
+  { Icon: Users,   href: "#", label: "Community" },
+];
 
-        {/* Bottom Bar */}
-        <div className="border-t border-primary-foreground/20 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-primary-foreground/60 text-sm">
-            © {new Date().getFullYear()} Power Build Solutions. All rights reserved.
+const Footer = () => (
+  <footer className="ft">
+    {/* decorative glow orbes */}
+    <div className="ft-glow ft-glow--a" aria-hidden="true" />
+    <div className="ft-glow ft-glow--b" aria-hidden="true" />
 
-          </p>
-          <div className="flex gap-6 text-sm">
-            <a href="#" className="text-primary-foreground/60 hover:text-primary-foreground transition-colors">
-              Privacy Policy
+    {/* ── MAIN GRID ── */}
+    <div className="ft-body">
+
+      {/* Brand */}
+      <div className="ft-brand">
+        <a href="#" className="ft-logo" aria-label="Power Building Solutions — home">
+          <span className="ft-logoIcon" aria-hidden="true">
+            <Building2 size={22} strokeWidth={1.6} />
+          </span>
+          <span className="ft-logoText">
+            <span className="ft-logoName">Power Building Solutions</span>
+            <span className="ft-logoTagline">Built to Last</span>
+          </span>
+        </a>
+
+        <p className="ft-desc">
+          Building excellence since 2016. Your trusted partner for commercial and
+          residential construction — quality craftsmanship on every project.
+        </p>
+
+        <div className="ft-socials">
+          {SOCIALS.map(({ Icon, href, label }) => (
+            <a key={label} href={href} className="ft-social" aria-label={label}>
+              <Icon size={15} strokeWidth={1.8} />
             </a>
-            <a href="#" className="text-primary-foreground/60 hover:text-primary-foreground transition-colors">
-              Terms of Service
-            </a>
-          </div>
+          ))}
         </div>
       </div>
-    </footer>
-  );
-};
+
+      {/* Quick Links */}
+      <div className="ft-col">
+        <span className="ft-colTitle">Quick Links</span>
+        <nav className="ft-nav">
+          {QUICK_LINKS.map(({ label, href }) => (
+            <a key={label} href={href} className="ft-link">{label}</a>
+          ))}
+        </nav>
+      </div>
+
+      {/* Services */}
+      <div className="ft-col">
+        <span className="ft-colTitle">Services</span>
+        <div className="ft-nav">
+          {SERVICES.map((s) => (
+            <span key={s} className="ft-service">
+              <span className="ft-serviceDot" aria-hidden="true" />
+              {s}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* Contact */}
+      <div className="ft-col">
+        <span className="ft-colTitle">Contact Us</span>
+        <div className="ft-contacts">
+          {CONTACT.map(({ Icon, label, value, href }) =>
+            href ? (
+              <a key={label} href={href} className="ft-contactItem">
+                <span className="ft-contactIcon" aria-hidden="true">
+                  <Icon size={15} strokeWidth={1.8} />
+                </span>
+                <span className="ft-contactText">
+                  <span className="ft-contactLabel">{label}</span>
+                  <span className="ft-contactValue">{value}</span>
+                </span>
+              </a>
+            ) : (
+              <div key={label} className="ft-contactItem">
+                <span className="ft-contactIcon" aria-hidden="true">
+                  <Icon size={15} strokeWidth={1.8} />
+                </span>
+                <span className="ft-contactText">
+                  <span className="ft-contactLabel">{label}</span>
+                  <span className="ft-contactValue">{value}</span>
+                </span>
+              </div>
+            )
+          )}
+        </div>
+      </div>
+    </div>
+
+    {/* ── BOTTOM BAR ── */}
+    <div className="ft-bottom">
+      <p className="ft-copyright">
+        © {new Date().getFullYear()} <strong>Power Building Solutions</strong>. All rights reserved.
+      </p>
+
+      <div className="ft-legal">
+        <a href="#" className="ft-legalLink">Privacy Policy</a>
+        <span className="ft-legalSep" aria-hidden="true" />
+        <a href="#" className="ft-legalLink">Terms of Service</a>
+      </div>
+
+      <a href="#" className="ft-top" aria-label="Back to top">
+        <ArrowUp size={15} strokeWidth={2} />
+      </a>
+    </div>
+  </footer>
+);
 
 export default Footer;

@@ -89,7 +89,7 @@ const HeroSection = ({ ready = false }: HeroProps): JSX.Element => {
 						animate={{ y: [0, -8, 0] }}
 						transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
 					>
-						<Building2 size={52} strokeWidth={1.4} />
+						<Building2 size={44} strokeWidth={1.4} />
 					</motion.div>
 				</div>
 

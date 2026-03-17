@@ -8,6 +8,7 @@
 @import "./styles/proyect-section.css";
 @import "./styles/Intro.css";
 @import "./styles/trusted.css";
+@import "./styles/footer.css";
 
 @tailwind base;
 @tailwind components;
