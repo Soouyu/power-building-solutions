@@ -29,12 +29,27 @@ const QuoteSection = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    await new Promise((r) => setTimeout(r, 1000));
-    toast({ title: "Quote Request Submitted", description: "We'll contact you within 24 hours." });
-    setSubmitted(true);
-    setIsSubmitting(false);
-    setFormData({ name: "", email: "", phone: "", company: "", projectType: "", message: "" });
-    setTimeout(() => setSubmitted(false), 5000);
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      if (res.ok) {
+        toast({ title: "Quote Request Submitted", description: "We'll contact you within 24 hours." });
+        setSubmitted(true);
+        setFormData({ name: "", email: "", phone: "", company: "", projectType: "", message: "" });
+        setTimeout(() => setSubmitted(false), 5000);
+      } else {
+        toast({ title: "Error", description: "Something went wrong. Please try again.", variant: "destructive" });
+      }
+    } catch {
+      toast({ title: "Error", description: "Could not send message. Please try again.", variant: "destructive" });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
