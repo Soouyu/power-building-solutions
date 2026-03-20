@@ -15,7 +15,7 @@ export default async function handler(req, res) {
 
   try {
     await resend.emails.send({
-      from: 'onboarding@resend.dev',
+      from: process.env.FROM_EMAIL,
       to: process.env.CONTACT_EMAIL,
       subject: `New Quote Request from ${name}`,
       replyTo: email,
